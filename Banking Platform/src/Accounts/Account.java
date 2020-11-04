@@ -2,6 +2,25 @@ package Accounts;
 
 import Users.User;
 
+/**
+ *
+ * <h1> Account Super Class </h1>
+ *
+ * <p>
+ *     The account class holds variables that are common to all types of accounts in the banking system.
+ *     It is important to note that in this solution a user account on the system is <U>NOT</U> considered
+ *     an Account but is considered a User
+ *
+ *     Cases where Account will be used
+ * </p>
+ * <ul>
+ *     <li>Current Account</li>
+ *     <li>Savings Account</li>
+ * </ul>
+ *
+ * @author aiden
+ * @version 1.0
+ */
 public class Account {
     private User beneficiary;
     private String IBAN;
@@ -11,6 +30,34 @@ public class Account {
     private final String BIC = "AIDENBANK1";
     private boolean status;
 
+
+    /**
+     * <p>
+     *     Constructor method to create a new account, all variables declared above must be initialised in order to create a
+     *     new account.
+     * </p>
+     *
+     * @param beneficiary
+     *  <p>The beneficiary of the account more information see also User</p>
+     *  @see User
+     * @param IBAN
+     * <p>IBAN number for the account</p>
+     * @param accountNumber
+     * <p>Account Number</p>
+     * @param availableBalance
+     * <p>The available balance</p>
+     * @param currency
+     * <p>The currency that the account is operating in</p>
+     * @param status
+     * <p>
+     *     Status of the account
+     *     <ul>
+     *         <li>True = Active</li>
+     *         <Li>False = Not Active</Li>
+     *     </ul>
+     * </p>
+     *
+     */
     public Account(User beneficiary, String IBAN, String accountNumber,
                    float availableBalance, String currency, boolean status) {
         this.beneficiary = beneficiary;
@@ -21,10 +68,18 @@ public class Account {
         this.status = status;
     }
 
+    /**
+     * @return The beneficiary of the account
+     */
     public User getBeneficiary() {
         return beneficiary;
     }
 
+    /**
+     * @param beneficiary Sets the beneficiary for the account
+     */
+
+    // Zid Java docs al kollox
     public void setBeneficiary(User beneficiary) {
         this.beneficiary = beneficiary;
     }
