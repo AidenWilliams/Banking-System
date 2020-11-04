@@ -3,21 +3,19 @@ package Users;
 public class User {
     private String name;
     private String surname;
-    private String correspondenceAddress;
-    private String[] otherAddresses;
+    private String[] addresses;
     private String DOB;
     private String email;
     private String phoneNumber;
     User(){
 
     }
-    User(String name, String surname, String correspondenceAddress, String[] otherAddresses,
+    User(String name, String surname, String[] addresses,
          String DOB, String email, String phoneNumber)
     {
         this.name = name;
         this.surname = surname;
-        this.correspondenceAddress = correspondenceAddress;
-        this.otherAddresses = otherAddresses;
+        this.addresses = addresses;
         this.DOB = DOB;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -39,20 +37,12 @@ public class User {
         this.surname = surname;
     }
 
-    public String getCorrespondenceAddress() {
-        return correspondenceAddress;
+    public String[] getAddresses() {
+        return addresses;
     }
 
-    public void setCorrespondenceAddress(String correspondenceAddress) {
-        this.correspondenceAddress = correspondenceAddress;
-    }
-
-    public String[] getOtherAddresses() {
-        return otherAddresses;
-    }
-
-    public void setOtherAddresses(String[] otherAddresses) {
-        this.otherAddresses = otherAddresses;
+    public void setAddresses(String[] addresses) {
+        this.addresses = addresses;
     }
 
     public String getDOB() {

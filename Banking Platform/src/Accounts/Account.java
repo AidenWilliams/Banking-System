@@ -22,7 +22,7 @@ import Users.User;
  * @version 1.0
  */
 public class Account {
-    private User beneficiary;
+    private User[] beneficiaries;
     private String IBAN;
     private String accountNumber;
     private String currency;
@@ -37,8 +37,11 @@ public class Account {
      *     new account.
      * </p>
      *
-     * @param beneficiary
-     *  <p>The beneficiary of the account more information see also User</p>
+     * @param beneficiaries
+     *  <p>
+     *      The beneficiaries of the account more information see also User
+     *      If there are two beneficiaries then the account is considered a joint account
+     *  </p>
      *  @see User
      * @param IBAN
      * <p>IBAN number for the account</p>
@@ -58,9 +61,9 @@ public class Account {
      * </p>
      *
      */
-    public Account(User beneficiary, String IBAN, String accountNumber,
+    public Account(User[] beneficiaries, String IBAN, String accountNumber,
                    float availableBalance, String currency, boolean status) {
-        this.beneficiary = beneficiary;
+        this.beneficiaries = beneficiaries;
         this.IBAN = IBAN;
         this.accountNumber = accountNumber;
         this.availableBalance = availableBalance;
@@ -71,8 +74,8 @@ public class Account {
     /**
      * @return The beneficiary of the account
      */
-    public User getBeneficiary() {
-        return beneficiary;
+    public User[] getBeneficiary() {
+        return beneficiaries;
     }
 
     /**
@@ -80,8 +83,8 @@ public class Account {
      */
 
     // Zid Java docs al kollox
-    public void setBeneficiary(User beneficiary) {
-        this.beneficiary = beneficiary;
+    public void setBeneficiary(User[] beneficiary) {
+        this.beneficiaries = beneficiary;
     }
 
     public String getIBAN() {
@@ -126,5 +129,9 @@ public class Account {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public boolean isJoint(){
+        return beneficiaries.length != 0;
     }
 }
