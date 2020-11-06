@@ -1,10 +1,9 @@
 package Accounts;
-
 import Users.User;
 
 /**
  *
- * <h1> Account Super Class </h1>
+ * <h1>Account Super Class</h1>
  *
  * <p>
  *     The account class holds variables that are common to all types of accounts in the banking system.
@@ -29,34 +28,25 @@ public class Account {
     private float availableBalance;
     private boolean status;
 
-
     /**
      * <p>
      *     Constructor method to create a new account, all variables declared above must be initialised in order to create a
      *     new account.
      * </p>
      *
-     * @param beneficiaries
-     *  <p>
-     *      The beneficiaries of the account more information see also User
-     *      If there are two beneficiaries then the account is considered a joint account
-     *  </p>
-     * @see User
-     * @see "https://en.wikipedia.org/wiki/Beneficiary"
+     * @param beneficiaries The beneficiaries of the account,for more information see also User
+     * See <a href = https://en.wikipedia.org/wiki/Beneficiary>Beneficiary<a/>
      * @param IBAN IBAN number for the account
-     * @see "https://en.wikipedia.org/wiki/International_Bank_Account_Number"
+     * See <a href = https://en.wikipedia.org/wiki/International_Bank_Account_Number>IBAN</a>
      * @param accountNumber Account Number
      * @param availableBalance The available balance
      * @param currency The currency that the account is operating in
-     * @param status
-     * <p>
-     *     Status of the account
+     * @param status Status of the account
      *     <ul>
      *         <li>True = Active</li>
      *         <Li>False = Not Active</Li>
      *     </ul>
-     * </p>
-     *
+     * @see User
      */
     public Account(User[] beneficiaries, String IBAN, String accountNumber,
                    float availableBalance, String currency, boolean status) {
@@ -133,7 +123,7 @@ public class Account {
 
     /**
      * @return Returns the BIC
-     * @see "https://en.wikipedia.org/wiki/ISO_9362"
+     * @see <a href=https://en.wikipedia.org/wiki/ISO_9362>BIC</a>
      */
     public String getBIC() {
         return "AIDENBANK1";
