@@ -21,9 +21,10 @@ package Users;
  * </p>
  *
  * @author aiden
- * @version 1.0
+ * @version 1.1
  */
 public class User {
+    private String id;
     private String name;
     private String surname;
     private String[] addresses;
@@ -36,6 +37,7 @@ public class User {
      *      Constructor method to create a new User, all variables declared above must be initialised in order to create
      *      a new User.
      * </p>
+     * @param id Id of the User. Could be id card or passport number
      * @param name Name of the User.
      * @param surname Surname of the User.
      * @param addresses Array of the user addresses, Must have at least 1.
@@ -43,14 +45,23 @@ public class User {
      * @param email Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    User(String name, String surname, String[] addresses,
+    User(String id, String name, String surname, String[] addresses,
          String DOB, String email, String phoneNumber){
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.addresses = addresses;
         this.DOB = DOB;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = name;
     }
 
     public String getName() {

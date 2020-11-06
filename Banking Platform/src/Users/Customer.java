@@ -1,6 +1,6 @@
 package Users;
 
-public class Administrator extends User{// implements Worker{
+public class Customer extends User{ // implements Basic
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -14,8 +14,7 @@ public class Administrator extends User{// implements Worker{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    public Administrator(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
+    public Customer(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
         super(name, surname, addresses, DOB, email, phoneNumber);
     }
-
 }
