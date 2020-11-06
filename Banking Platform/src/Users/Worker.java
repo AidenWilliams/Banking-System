@@ -16,5 +16,5 @@ public interface Worker extends Basic{
     void removeCard(User user, String accountNumber);
      */
     User createUser(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber);
-    User deleteUser(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber);
+    User deleteUser(String id);
 }
