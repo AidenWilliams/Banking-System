@@ -7,9 +7,6 @@ public class User {
     private String DOB;
     private String email;
     private String phoneNumber;
-    User(){
-
-    }
     User(String name, String surname, String[] addresses,
          String DOB, String email, String phoneNumber)
     {

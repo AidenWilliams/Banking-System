@@ -1,14 +1,16 @@
 package Users;
 
-public class Administrator extends User implements Worker{
-    public Administrator(String name, String surname, String[] addresses,
-                  String DOB, String email, String phoneNumber) {
+public class Regular extends User implements Worker{
+
+    public Regular(String name, String surname, String[] addresses,
+                         String DOB, String email, String phoneNumber) {
         super(name, surname, addresses, DOB, email, phoneNumber);
     }
 
+
     @Override
     public void openAccount() {
-        System.out.println("Opening Account");
+
     }
 
     @Override

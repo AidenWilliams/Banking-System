@@ -23,11 +23,10 @@ import Users.User;
  */
 public class Account {
     private User[] beneficiaries;
-    private String IBAN;
+    private final String IBAN;
     private String accountNumber;
     private String currency;
     private float availableBalance;
-    private final String BIC = "AIDENBANK1";
     private boolean status;
 
 
@@ -42,15 +41,13 @@ public class Account {
      *      The beneficiaries of the account more information see also User
      *      If there are two beneficiaries then the account is considered a joint account
      *  </p>
-     *  @see User
-     * @param IBAN
-     * <p>IBAN number for the account</p>
-     * @param accountNumber
-     * <p>Account Number</p>
-     * @param availableBalance
-     * <p>The available balance</p>
-     * @param currency
-     * <p>The currency that the account is operating in</p>
+     * @see User
+     * @see "https://en.wikipedia.org/wiki/Beneficiary"
+     * @param IBAN IBAN number for the account
+     * @see "https://en.wikipedia.org/wiki/International_Bank_Account_Number"
+     * @param accountNumber Account Number
+     * @param availableBalance The available balance
+     * @param currency The currency that the account is operating in
      * @param status
      * <p>
      *     Status of the account
@@ -81,56 +78,85 @@ public class Account {
     /**
      * @param beneficiary Sets the beneficiary for the account
      */
-
-    // Zid Java docs al kollox
     public void setBeneficiary(User[] beneficiary) {
         this.beneficiaries = beneficiary;
     }
 
+    /**
+     * @return Account IBAN
+     */
     public String getIBAN() {
         return IBAN;
     }
 
-    public void setIBAN(String IBAN) {
-        this.IBAN = IBAN;
-    }
-
+    /**
+     * @return The unique internal account number, different from the IBAN
+     */
     public String getAccountNumber() {
         return accountNumber;
     }
 
+    /**
+     * @param accountNumber The unique internal account number, different from the IBAN
+     */
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
+    /**
+     * @return The currency in which this account is opened on
+     */
     public String getCurrency() {
         return currency;
     }
 
+    /**
+     * @param currency The currency in which this account is opened on
+     */
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
+    /**
+     * @return The Account balance
+     */
     public float getAvailableBalance() {
         return availableBalance;
     }
 
+    /**
+     * @param availableBalance The Account balance
+     */
     public void setAvailableBalance(float availableBalance) {
         this.availableBalance = availableBalance;
     }
 
+    /**
+     * @return Returns the BIC
+     * @see "https://en.wikipedia.org/wiki/ISO_9362"
+     */
     public String getBIC() {
-        return BIC;
+        return "AIDENBANK1";
     }
 
+    /**
+     * @return Status of the account, as described in the constructor
+     * @see Account
+     */
     public boolean isStatus() {
         return status;
     }
 
+    /**
+     * @param status The status of the account
+     */
     public void setStatus(boolean status) {
         this.status = status;
     }
 
+    /**
+     * @return Whether the account is joint or not
+     */
     public boolean isJoint(){
         return beneficiaries.length != 0;
     }
