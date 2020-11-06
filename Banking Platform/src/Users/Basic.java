@@ -2,6 +2,7 @@ package Users;
 import Accounts.Account;
 
 public interface Basic {
+    //TODO: Add javadoc
     Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency);
     Account createNewAccount(User[] beneficiaries, String accountNumber, String currency);
     void closeAccount(User user);

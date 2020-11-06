@@ -15,8 +15,10 @@ public class Regular extends User{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
+    //TODO: Add javadoc
     Regular(String id, String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }// implements Worker
 
+    //TODO: Add implementation of interfaces
 }

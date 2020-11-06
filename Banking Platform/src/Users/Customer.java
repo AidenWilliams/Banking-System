@@ -15,8 +15,10 @@ public class Customer extends User{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
+    //TODO: Add javadoc
     Customer(String id, String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     } // implements Basic
 
+    //TODO: Add implementation of interfaces
 }

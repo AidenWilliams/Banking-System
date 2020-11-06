@@ -56,6 +56,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    //TODO: Add javadoc
     public String getId() {
         return id;
     }

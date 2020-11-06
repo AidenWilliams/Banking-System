@@ -15,6 +15,9 @@ public interface Worker extends Basic{
     void addCard(User user, String accountNumber);
     void removeCard(User user, String accountNumber);
      */
+    //TODO: Add javadoc
     User createUser(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber);
     User deleteUser(String id);
+
+    //TODO: Add more functions to Worker
 }
