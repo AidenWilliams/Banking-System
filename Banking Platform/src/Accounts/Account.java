@@ -18,7 +18,7 @@ import Users.User;
  * </ul>
  *
  * @author aiden
- * @version 1.0
+ * @version 1.1
  */
 public class Account {
     private User[] beneficiaries;
@@ -26,6 +26,7 @@ public class Account {
     private String accountNumber;
     private String currency;
     private float availableBalance;
+    private float balanceOnHold;
     private boolean status;
     private Card[] cards;
 
@@ -42,21 +43,17 @@ public class Account {
      * @param accountNumber Account Number
      * @param availableBalance The available balance
      * @param currency The currency that the account is operating in
-     * @param status Status of the account
-     *     <ul>
-     *         <li>True = Active</li>
-     *         <Li>False = Not Active</Li>
-     *     </ul>
      * @see User
      */
     public Account(User[] beneficiaries, String IBAN, String accountNumber,
-                   float availableBalance, String currency, boolean status) {
+                   float availableBalance, String currency) {
         this.beneficiaries = beneficiaries;
         this.IBAN = IBAN;
         this.accountNumber = accountNumber;
         this.availableBalance = availableBalance;
+        this.balanceOnHold = 0f;
         this.currency = currency;
-        this.status = status;
+        this.status = true;
     }
     //TODO: Add javadoc to cards
     /**
@@ -122,6 +119,14 @@ public class Account {
         this.availableBalance = availableBalance;
     }
 
+    public float getBalanceOnHold() {
+        return balanceOnHold;
+    }
+
+    public void setBalanceOnHold(float balanceOnHold) {
+        this.balanceOnHold = balanceOnHold;
+    }
+
     /**
      * @return Returns the BIC
      * @see <a href=https://en.wikipedia.org/wiki/ISO_9362>BIC</a>
@@ -131,7 +136,11 @@ public class Account {
     }
 
     /**
-     * @return Status of the account, as described in the constructor
+     * @return Status of the account
+     * <ul>
+     *      <li>True = Active</li>
+     *      <Li>False = Not Active</Li>
+     * </ul>
      * @see Account
      */
     public boolean isStatus() {
