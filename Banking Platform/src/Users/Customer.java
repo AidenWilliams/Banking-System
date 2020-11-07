@@ -1,6 +1,6 @@
 package Users;
 
-public class Customer extends User{
+public class Customer extends User{ // implements Basic
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -18,7 +18,7 @@ public class Customer extends User{
     //TODO: Add javadoc
     Customer(String id, String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
-    } // implements Basic
+    }
 
     //TODO: Add implementation of interfaces
 }

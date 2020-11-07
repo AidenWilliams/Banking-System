@@ -20,4 +20,5 @@ public interface Worker extends Basic{
     User deleteUser(String id);
 
     //TODO: Add more functions to Worker
+    //No need to add extra to worker, possibly add more to role
 }

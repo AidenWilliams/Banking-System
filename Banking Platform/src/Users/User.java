@@ -21,7 +21,7 @@ package Users;
  * </p>
  *
  * @author aiden
- * @version 1.1
+ * @version 1.2
  */
 public class User {
     private String id;

@@ -3,6 +3,15 @@ import Accounts.Account;
 
 public interface Basic {
     //TODO: Add javadoc
+
+    /**
+     *
+     * @param beneficiaries
+     * @param accountNumber
+     * @param availableBalance
+     * @param currency
+     * @return
+     */
     Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency);
     Account createNewAccount(User[] beneficiaries, String accountNumber, String currency);
     void closeAccount(User user);

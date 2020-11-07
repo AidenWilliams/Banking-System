@@ -27,6 +27,7 @@ public class Account {
     private String currency;
     private float availableBalance;
     private boolean status;
+    private Card[] cards;
 
     /**
      * <p>
@@ -57,19 +58,19 @@ public class Account {
         this.currency = currency;
         this.status = status;
     }
-
+    //TODO: Add javadoc to cards
     /**
      * @return The beneficiary of the account
      */
-    public User[] getBeneficiary() {
+    public User[] getBeneficiaries() {
         return beneficiaries;
     }
 
     /**
-     * @param beneficiary Sets the beneficiary for the account
+     * @param beneficiaries Sets the beneficiary for the account
      */
-    public void setBeneficiary(User[] beneficiary) {
-        this.beneficiaries = beneficiary;
+    public void setBeneficiaries(User[] beneficiaries) {
+        this.beneficiaries = beneficiaries;
     }
 
     /**
@@ -149,5 +150,13 @@ public class Account {
      */
     public boolean isJoint(){
         return beneficiaries.length != 0;
+    }
+
+    public Card[] getCards() {
+        return cards;
+    }
+
+    public void setCards(Card[] cards) {
+        this.cards = cards;
     }
 }
