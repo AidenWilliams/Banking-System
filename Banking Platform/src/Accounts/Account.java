@@ -1,6 +1,8 @@
 package Accounts;
 import Users.User;
 
+import java.util.ArrayList;
+
 /**
  *
  * <h1>Account Super Class</h1>
@@ -28,7 +30,7 @@ public class Account {
     private float availableBalance;
     private float balanceOnHold;
     private boolean status;
-    private Card[] cards;
+    private ArrayList<Card> cards;
 
     /**
      * <p>
@@ -161,11 +163,27 @@ public class Account {
         return beneficiaries.length != 0;
     }
 
-    public Card[] getCards() {
+    public ArrayList<Card>  getCards() {
         return cards;
     }
 
-    public void setCards(Card[] cards) {
+    public void setCards(ArrayList<Card> cards) {
         this.cards = cards;
+    }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public void removeCard(Card card) {
+        this.cards.removeIf(c -> c == card);
+        /*
+        for (Card c : this.cards) {
+            if(c == card){
+                this.cards.remove(c);
+
+            }
+        }
+         */
     }
 }

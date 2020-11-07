@@ -1,5 +1,9 @@
 package Users;
 
+import Accounts.Card;
+
+import java.util.ArrayList;
+
 /**
  * <h1>User Super Class</h1>
  *
@@ -27,7 +31,7 @@ public class User {
     private String id;
     private String name;
     private String surname;
-    private String[] addresses;
+    private ArrayList<String> addresses;
     private String DOB;
     private String email;
     private String phoneNumber;
@@ -45,7 +49,7 @@ public class User {
      * @param email Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    User(String id, String name, String surname, String[] addresses,
+    User(String id, String name, String surname, ArrayList<String> addresses,
          String DOB, String email, String phoneNumber){
         this.id = id;
         this.name = name;
@@ -81,12 +85,28 @@ public class User {
         this.surname = surname;
     }
 
-    public String[] getAddresses() {
+    public ArrayList<String> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(String[] addresses) {
+    public void setAddresses(ArrayList<String> addresses) {
         this.addresses = addresses;
+    }
+
+    public void addAddress(String address) {
+        this.addresses.add(address);
+    }
+
+    public void removeAddress(String address) {
+        this.addresses.removeIf(a -> a.equals(address));
+        /*
+        for (Card c : this.cards) {
+            if(c == card){
+                this.cards.remove(c);
+
+            }
+        }
+         */
     }
 
     public String getDOB() {
