@@ -1,6 +1,6 @@
 package Users;
 
-public class Regular extends User{
+public class Regular extends User{// implements Worker
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -18,7 +18,7 @@ public class Regular extends User{
     //TODO: Add javadoc
     Regular(String id, String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
-    }// implements Worker
+    }
 
     //TODO: Add implementation of interfaces
 }
