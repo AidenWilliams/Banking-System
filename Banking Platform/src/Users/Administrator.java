@@ -1,5 +1,7 @@
 package Users;
 
+import java.util.ArrayList;
+
 public class Administrator extends User{
     /**
      * <p>
@@ -16,7 +18,7 @@ public class Administrator extends User{
      * @param phoneNumber Phone of the user.
      */
     //TODO: Add javadoc
-    public Administrator(String id, String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
+    public Administrator(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 

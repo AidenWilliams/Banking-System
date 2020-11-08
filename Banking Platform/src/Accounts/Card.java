@@ -2,6 +2,7 @@ package Accounts;
 
 import Users.User;
 // In banking cards are their own account
+// Default card is a debit card
 public class Card extends Account{
     //TODO: Add javadoc
     final private String name;
@@ -14,12 +15,13 @@ public class Card extends Account{
     private short status;
     private float limit;
 
-    public Card(String name, String surname, String number, String validTo, String cvv,
-                String pin, boolean virtual, short status, float limit, Account account){
+    public Card(String name, String surname, String validTo, String cvv,
+                String pin, boolean virtual, short status, float limit,
+                Account account){
         super(account);
         this.name = name;
         this.surname = surname;
-        this.number = number;
+        this.number = account.getAccountNumber();
         this.validTo = validTo;
         this.CVV = cvv;
         this.virtual = virtual;

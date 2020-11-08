@@ -1,5 +1,7 @@
 package Users;
 
+import java.util.ArrayList;
+
 public class Customer extends User{ // implements Basic
     /**
      * <p>
@@ -16,7 +18,7 @@ public class Customer extends User{ // implements Basic
      * @param phoneNumber Phone of the user.
      */
     //TODO: Add javadoc
-    Customer(String id, String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
+    Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 

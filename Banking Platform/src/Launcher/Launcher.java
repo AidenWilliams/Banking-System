@@ -1,12 +1,16 @@
 package Launcher;
 
-import Accounts.DebitCard;
 import Users.Administrator;
-import Users.User;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Launcher {
     public static void main (String[] args){
-        Administrator administrator = new Administrator("2","Aiden", "Williams", new String[]{"12, Programmer Strt"},
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        arrayList.add("address1");
+        Administrator administrator = new Administrator("2","Aiden", "Williams", arrayList,
                 "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421");
 
     }

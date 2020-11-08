@@ -1,5 +1,7 @@
 package Users;
 
+import java.util.ArrayList;
+
 public class Regular extends User{// implements Worker
     /**
      * <p>
@@ -16,7 +18,7 @@ public class Regular extends User{// implements Worker
      * @param phoneNumber Phone of the user.
      */
     //TODO: Add javadoc
-    Regular(String id, String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
+    Regular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
