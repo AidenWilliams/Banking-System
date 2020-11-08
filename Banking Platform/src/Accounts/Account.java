@@ -57,6 +57,17 @@ public class Account {
         this.currency = currency;
         this.status = true;
     }
+
+    public Account(Account account){
+        this.beneficiaries = account.beneficiaries;
+        this.IBAN = account.IBAN;
+        this.accountNumber = account.accountNumber;
+        this.availableBalance = account.availableBalance;
+        this.balanceOnHold = account.balanceOnHold;
+        this.currency = account.currency;
+        this.status = account.status;
+        this.cards = account.cards;
+    }
     //TODO: Add javadoc to cards
     /**
      * @return The beneficiary of the account

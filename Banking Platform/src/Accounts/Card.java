@@ -1,6 +1,8 @@
 package Accounts;
 
-public class Card {
+import Users.User;
+// In banking cards are their own account
+public class Card extends Account{
     //TODO: Add javadoc
     final private String name;
     final private String surname;
@@ -13,7 +15,8 @@ public class Card {
     private float limit;
 
     public Card(String name, String surname, String number, String validTo, String cvv,
-                String pin, boolean virtual, short status, float limit){
+                String pin, boolean virtual, short status, float limit, Account account){
+        super(account);
         this.name = name;
         this.surname = surname;
         this.number = number;
