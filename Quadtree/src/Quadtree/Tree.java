@@ -1,7 +1,9 @@
+package Quadtree;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.invoke.SwitchPoint;
 
+// Bye ha nuza cpp
 public class Tree {
     //https://www.geeksforgeeks.org/find-whether-a-given-number-is-a-power-of-4-or-not/
     // Function to check if
@@ -47,10 +49,11 @@ public class Tree {
             return;
         }
 
-        if(!isPowerOfFour(SE) | !isPowerOfFour(NE)){
+        if(!isPowerOfFour(SE + 1) | !isPowerOfFour(NE + 1)){
             System.out.println("Width AND Height must be to the power of 4");
             return;
         }
 
+        Quad m = new Quad().big_quad(args[0], SE);
     }
 }
