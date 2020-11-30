@@ -2,7 +2,6 @@ package Accounts;
 
 import Users.User;
 // In banking cards are their own account
-// Default card is a debit card
 public class Card extends Account{
     //TODO: Add javadoc
     final private String name;
