@@ -40,17 +40,15 @@ public class Account {
      *
      * @param beneficiaries The beneficiaries of the account,for more information see also User
      * See <a href = https://en.wikipedia.org/wiki/Beneficiary>Beneficiary<a/>
-     * @param IBAN IBAN number for the account
-     * See <a href = https://en.wikipedia.org/wiki/International_Bank_Account_Number>IBAN</a>
      * @param accountNumber Account Number
      * @param availableBalance The available balance
      * @param currency The currency that the account is operating in
      * @see User
      */
-    public Account(User[] beneficiaries, String IBAN, String accountNumber,
+    public Account(User[] beneficiaries, String accountNumber,
                    float availableBalance, String currency) {
         this.beneficiaries = beneficiaries;
-        this.IBAN = IBAN;
+        this.IBAN = "MT38" + getBIC() + accountNumber;
         this.accountNumber = accountNumber;
         this.availableBalance = availableBalance;
         this.balanceOnHold = 0f;
@@ -58,7 +56,7 @@ public class Account {
         this.status = true;
     }
 
-    public Account(Account account){
+    protected Account(Account account){
         this.beneficiaries = account.beneficiaries;
         this.IBAN = account.IBAN;
         this.accountNumber = account.accountNumber;
@@ -188,13 +186,5 @@ public class Account {
 
     public void removeCard(Card card) {
         this.cards.removeIf(c -> c == card);
-        /*
-        for (Card c : this.cards) {
-            if(c == card){
-                this.cards.remove(c);
-
-            }
-        }
-         */
     }
 }

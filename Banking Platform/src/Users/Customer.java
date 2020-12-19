@@ -1,8 +1,11 @@
 package Users;
 
+import Accounts.Account;
+import Workflow.JobRequest;
+
 import java.util.ArrayList;
 
-public class Customer extends User{ // implements Basic
+public class Customer extends User implements Basic{
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -20,6 +23,63 @@ public class Customer extends User{ // implements Basic
     //TODO: Add javadoc
     Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
+    }
+
+    @Override
+    public Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency) {
+        Account account = new Account(beneficiaries, accountNumber, availableBalance, currency);
+        JobRequest.AddJobRequest(account,"CreateNewAccount");
+        return account;
+    }
+
+    @Override
+    public Account createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
+        return null;
+    }
+
+    @Override
+    public void closeAccount(User user) {
+
+    }
+
+    @Override
+    public void deleteAccount(String accountNumber) {
+
+    }
+
+    @Override
+    public void transferToAccount(User user, String accountFrom, String accountTo, float amount) {
+
+    }
+
+    @Override
+    public void viewBalance(User user) {
+
+    }
+
+    @Override
+    public void viewBalance(String account) {
+
+    }
+
+    @Override
+    public void viewTransactions(User user) {
+
+    }
+
+    @Override
+    public void viewTransactions(User user, String accountNumber) {
+
+    }
+
+    @Override
+    public void addCard(User user, String accountNumber) {
+
+    }
+
+    @Override
+    public void removeCard(User user, String accountNumber) {
+
     }
 
     //TODO: Add implementation of interfaces
