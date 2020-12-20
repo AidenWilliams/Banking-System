@@ -27,8 +27,8 @@ public class Account {
     private final String IBAN;
     private String accountNumber;
     private String currency;
-    private float availableBalance;
-    private float balanceOnHold;
+    private double availableBalance;
+    private double balanceOnHold;
     private boolean status;
     private ArrayList<Card> cards;
 
@@ -46,7 +46,7 @@ public class Account {
      * @see User
      */
     public Account(User[] beneficiaries, String accountNumber,
-                   float availableBalance, String currency) {
+                   double availableBalance, String currency) {
         this.beneficiaries = beneficiaries;
         this.IBAN = "MT38" + getBIC() + accountNumber;
         this.accountNumber = accountNumber;
@@ -119,22 +119,22 @@ public class Account {
     /**
      * @return The Account balance
      */
-    public float getAvailableBalance() {
+    public double getAvailableBalance() {
         return availableBalance;
     }
 
     /**
      * @param availableBalance The Account balance
      */
-    public void setAvailableBalance(float availableBalance) {
+    public void setAvailableBalance(double availableBalance) {
         this.availableBalance = availableBalance;
     }
 
-    public float getBalanceOnHold() {
+    public double getBalanceOnHold() {
         return balanceOnHold;
     }
 
-    public void setBalanceOnHold(float balanceOnHold) {
+    public void setBalanceOnHold(double balanceOnHold) {
         this.balanceOnHold = balanceOnHold;
     }
 

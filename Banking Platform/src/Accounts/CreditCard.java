@@ -1,14 +1,14 @@
 package Accounts;
 
 public class CreditCard extends Card{
-    private float creditLimit;
-    private float interestRate;
+    private double creditLimit;
+    private double interestRate;
     private int daysBeforePayment;
 
 
     public CreditCard(String name, String surname, String validTo, String cvv,
-                      String pin, boolean virtual, short status, float limit,
-                      float creditLimit, float interestRate, int daysBeforePayment,
+                      String pin, boolean virtual, short status, double limit,
+                      double creditLimit, double interestRate, int daysBeforePayment,
                       Account account) {
         super(name, surname, validTo, cvv, pin, virtual, status, limit, account);
         this.creditLimit = creditLimit;
@@ -16,19 +16,19 @@ public class CreditCard extends Card{
         this.daysBeforePayment = daysBeforePayment;
     }
 
-    public float getCreditLimit() {
+    public double getCreditLimit() {
         return creditLimit;
     }
 
-    public void setCreditLimit(float creditLimit) {
+    public void setCreditLimit(double creditLimit) {
         this.creditLimit = creditLimit;
     }
 
-    public float getInterestRate() {
+    public double getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(float interestRate) {
+    public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
 

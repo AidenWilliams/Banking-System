@@ -49,7 +49,7 @@ public class User {
      * @param email Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    User(String id, String name, String surname, ArrayList<String> addresses,
+    public User(String id, String name, String surname, ArrayList<String> addresses,
          String DOB, String email, String phoneNumber){
         this.id = id;
         this.name = name;

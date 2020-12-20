@@ -40,7 +40,7 @@ public class Administrator extends User implements Worker{
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency) {
+    public Account createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
         return null;
     }
 
@@ -60,7 +60,7 @@ public class Administrator extends User implements Worker{
     }
 
     @Override
-    public void transferToAccount(User user, String accountFrom, String accountTo, float amount) {
+    public void transferToAccount(User user, String accountFrom, String accountTo, double amount) {
 
     }
 

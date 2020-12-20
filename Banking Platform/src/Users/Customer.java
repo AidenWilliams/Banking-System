@@ -26,7 +26,7 @@ public class Customer extends User implements Basic{
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency) {
+    public Account createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
         Account account = new Account(beneficiaries, accountNumber, availableBalance, currency);
         JobRequest.AddJobRequest(account,"CreateNewAccount");
         return account;
@@ -48,7 +48,7 @@ public class Customer extends User implements Basic{
     }
 
     @Override
-    public void transferToAccount(User user, String accountFrom, String accountTo, float amount) {
+    public void transferToAccount(User user, String accountFrom, String accountTo, double amount) {
 
     }
 
