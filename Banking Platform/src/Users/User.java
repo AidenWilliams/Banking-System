@@ -99,14 +99,6 @@ public class User {
 
     public void removeAddress(String address) {
         this.addresses.removeIf(a -> a.equals(address));
-        /*
-        for (Card c : this.cards) {
-            if(c == card){
-                this.cards.remove(c);
-
-            }
-        }
-         */
     }
 
     public String getDOB() {
