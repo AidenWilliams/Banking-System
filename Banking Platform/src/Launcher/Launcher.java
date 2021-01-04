@@ -23,5 +23,20 @@ public class Launcher {
 
 
         customer.createNewAccount(new User[] {customer}, "m", 1000,"EUR");
+        customer.createNewAccount(new User[] {customer}, "n", 1000,"EUR");
+
+        Account a = new Account(new User[] {customer}, "m", 1000,"EUR");
+        Account b = new Account(new User[] {customer}, "n", 1000,"EUR");
+
+
+        a.setBalanceOnHold(500);
+        a.setAvailableBalance(500);
+
+        Job.accounts.add(a);
+        Job.accounts.add(b);
+
+        Job.Transfer(a.getAccountNumber(), b.getAccountNumber(), 500);
+
+        System.out.println("Monkey");
     }
 }

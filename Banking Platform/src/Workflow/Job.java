@@ -6,14 +6,15 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Job {
-    static ArrayList<String> detail;
-    static ArrayList<Object> item;
-    static ArrayList<Account> accounts;
+    //Make not public
+    public static ArrayList<String> detail;
+    public static ArrayList<Object> item;
+    public static ArrayList<Account> accounts;
 
     public static void startUp(){
-        detail = null;
-        item = null;
-        accounts = null;
+        detail = new ArrayList<>();
+        item = new ArrayList<>();
+        accounts = new ArrayList<>();
     }
 
     static void AddAccount(){

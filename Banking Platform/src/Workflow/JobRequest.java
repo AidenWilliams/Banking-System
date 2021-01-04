@@ -5,7 +5,7 @@ import Users.*;
 
 import java.util.ArrayList;
 
-//This is not working do something else
+//Ok nvm
 
 public class JobRequest {
     public static int AddJobRequest(Object obj, String detail){
