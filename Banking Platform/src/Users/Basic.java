@@ -12,15 +12,15 @@ public interface Basic {
      * @param currency
      * @return
      */
-    Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency);
-    Account createNewAccount(User[] beneficiaries, String accountNumber, String currency);
-    void closeAccount(User user);
-    void deleteAccount(String accountNumber);
-    void transferToAccount(User user, String accountFrom, String accountTo, float amount);
-    void viewBalance(User user);
+    int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency);
+    int createNewAccount(User[] beneficiaries, String accountNumber, String currency);
+    int addCard(String accountNumber);
+    int removeCard(String accountNumber);
+    int closeAccount(String accountNumber);
+    int deleteAccount(String accountNumber);
+    int transferToAccount(String accountFrom, String accountTo, double amount);
+    void viewBalance();
     void viewBalance(String account);
     void viewTransactions(User user);
     void viewTransactions(User user, String accountNumber);
-    void addCard(User user, String accountNumber);
-    void removeCard(User user, String accountNumber);
 }

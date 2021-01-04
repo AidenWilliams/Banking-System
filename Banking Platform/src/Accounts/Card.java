@@ -12,10 +12,10 @@ public class Card extends Account{
     final private boolean virtual;
     private String PIN;
     private short status;
-    private float limit;
+    private double limit;
 
     public Card(String name, String surname, String validTo, String cvv,
-                String pin, boolean virtual, short status, float limit,
+                String pin, boolean virtual, short status, double limit,
                 Account account){
         super(account);
         this.name = name;
@@ -69,11 +69,11 @@ public class Card extends Account{
         this.status = status;
     }
 
-    public float getLimit() {
+    public double getLimit() {
         return limit;
     }
 
-    public void setLimit(float limit) {
+    public void setLimit(double limit) {
         this.limit = limit;
     }
 }

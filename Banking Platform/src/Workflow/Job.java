@@ -1,13 +1,36 @@
 package Workflow;
 
+import Accounts.Account;
+
 import java.io.*;
+import java.util.ArrayList;
 
 public class Job {
+    static ArrayList<String> detail;
+    static ArrayList<Object> item;
+    static ArrayList<Account> accounts;
+
+    public static void startUp(){
+        detail = null;
+        item = null;
+        accounts = null;
+    }
+
     static void AddAccount(){
         //Change those account details
     }
-    static void AmendAccount(){
+    static void AmendAccount(String accountNumber, Account amendedAccount){
         //Change those account details
+        for(int i = 0; i < accounts.size(); i++){
+            if(accounts.get(i).getAccountNumber().equals(accountNumber)){
+                accounts.set(i, amendedAccount);
+            }
+        }
+    }
+
+    static void AmendAccount(Account oldAccount, Account amendedAccount){
+        //Change those account details
+        accounts.set(accounts.indexOf(oldAccount), amendedAccount);
     }
     static void ViewAccount(){
         //Get detail from account
@@ -24,46 +47,26 @@ public class Job {
     static void DeleteUser(){
         //Remove the account from the file
     }
-
-    public static void writeToFile(File path, Object data)
-    {
-        try(ObjectOutputStream write= new ObjectOutputStream (new FileOutputStream(path)))
-        {
-            write.writeObject(data);
-        }
-        catch(NotSerializableException nse)
-        {
-            System.out.println("Not Serializable");
-        }
-        catch(IOException eio)
-        {
-            System.out.println("Exception");
-        }
+    static void getJobTypes(){
+        //get jobs
+    }
+    static void getJobsOfType(){
+        //blabla
     }
 
+    public static Account getAccount(String accountNumber){
+        for (Account account : Job.accounts )
+            if( account.getAccountNumber().equals(accountNumber))
+                return account;
 
-    public static Object readFromFile(File path)
-    {
-        Object data = null;
-
-        try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(path)))
-        {
-            data = inFile.readObject();
-            return data;
-        }
-        catch(ClassNotFoundException cnfe)
-        {
-            System.out.println("Class not found");
-        }
-        catch(FileNotFoundException fnfe)
-        {
-            System.out.println("File not found");
-        }
-        catch(IOException e)
-        {
-            System.out.println("Exception");
-        }
-        return data;
+        return null;
     }
 
+    public static void Transfer(String accountFrom, String accountTo, double amount){
+        Account f = getAccount(accountFrom), t = getAccount(accountTo);
+        f.setBalanceOnHold(f.getBalanceOnHold() - amount);
+        t.setAvailableBalance(t.getAvailableBalance() + amount);
+        AmendAccount(accountFrom, f);
+        AmendAccount(accountTo, t);
+    }
 }

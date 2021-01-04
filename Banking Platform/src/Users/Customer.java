@@ -2,6 +2,7 @@ package Users;
 
 import Accounts.Account;
 import Workflow.JobRequest;
+import Workflow.Limits;
 
 import java.util.ArrayList;
 
@@ -21,39 +22,49 @@ public class Customer extends User implements Basic{
      * @param phoneNumber Phone of the user.
      */
     //TODO: Add javadoc
-    Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
+    public Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency) {
+    public int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
         Account account = new Account(beneficiaries, accountNumber, availableBalance, currency);
-        JobRequest.AddJobRequest(account,"CreateNewAccount");
-        return account;
+        return JobRequest.AddJobRequest(account,"CreateNewAccount");
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        return null;
+    public int createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
+        Account account = new Account(beneficiaries, accountNumber, 0, currency);
+        return JobRequest.AddJobRequest(account,"CreateNewAccount");
     }
 
     @Override
-    public void closeAccount(User user) {
-
+    public int closeAccount(String accountNumber) {
+        return JobRequest.AddJobRequest(accountNumber,"CloseAccount");
     }
 
     @Override
-    public void deleteAccount(String accountNumber) {
-
+    public int deleteAccount(String accountNumber) {
+        return JobRequest.AddJobRequest(accountNumber,"DeleteAccount");
     }
 
     @Override
-    public void transferToAccount(User user, String accountFrom, String accountTo, float amount) {
-
+    public int transferToAccount(String accountFrom, String accountTo, double amount) {
+        return JobRequest.AddJobRequest(accountFrom,  accountTo,  amount, "Transfer");
     }
 
     @Override
-    public void viewBalance(User user) {
+    public int addCard(String accountNumber) {
+        return JobRequest.AddJobRequest(accountNumber,"AddCard");
+    }
+
+    @Override
+    public int removeCard(String accountNumber) {
+        return JobRequest.AddJobRequest(accountNumber,"RemoveCard");
+    }
+
+    @Override
+    public void viewBalance() {
 
     }
 
@@ -69,16 +80,6 @@ public class Customer extends User implements Basic{
 
     @Override
     public void viewTransactions(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void addCard(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void removeCard(User user, String accountNumber) {
 
     }
 

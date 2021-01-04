@@ -3,21 +3,47 @@ package Workflow;
 import Accounts.*;
 import Users.*;
 
-import java.io.File;
+import java.util.ArrayList;
+
+//This is not working do something else
 
 public class JobRequest {
-    String details;
-
-    static String GetLastRequestIdentifier(){
-        return "1";
+    public static int AddJobRequest(Object obj, String detail){
+        Job.detail.add(detail);
+        Job.item.add(obj);
+        return Job.detail.size();
+    }
+    public static int AddJobRequest(Object obj1,Object obj2, String detail){
+        Job.detail.add(detail);
+        Job.detail.add(detail);
+        Job.item.add(obj1);
+        Job.item.add(obj2);
+        return Job.detail.size();
+    }
+    public static int AddJobRequest(Object obj1,Object obj2, Object obj3, String detail){
+        Job.detail.add(detail);
+        Job.detail.add(detail);
+        Job.detail.add(detail);
+        Job.item.add(obj1);
+        Job.item.add(obj2);
+        Job.item.add(obj3);
+        return Job.detail.size();
     }
 
-    public static void AddJobRequest(Account account, String details){
-        //TODO: See if these work also do the get last one and ++
-        Job.writeToFile(new File("/Data/Requests/Details/" + GetLastRequestIdentifier()), details);
-        Job.writeToFile(new File("/Data/Requests/Accounts/" + GetLastRequestIdentifier()), account);
+    public static ArrayList<Account> getAccounts(User user){
+        ArrayList<Account> searchResult = null;
+        User[] ben;
+
+        for (Account account : Job.accounts ){
+            ben = account.getBeneficiaries();
+            for (User b: ben)
+                if(b == user)
+                    searchResult.add(account);
+        }
+    return searchResult;
     }
-    public static void RemoveJobRequest(){
+
+    public static void RemoveJobRequest(int id){
 
     }
 }

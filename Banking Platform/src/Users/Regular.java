@@ -40,30 +40,48 @@ public class Regular extends User implements Worker{
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency) {
-        return null;
+    public int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+        return 1;
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        return null;
+    public int createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
+        return 1;
     }
 
     @Override
-    public void closeAccount(User user) {
-
-    }
-
-    @Override
-    public void deleteAccount(String accountNumber) {
+    public int closeAccount(String accountNumber) {
+        return 1;
 
     }
 
     @Override
-    public void transferToAccount(User user, String accountFrom, String accountTo, float amount) {
+    public int deleteAccount(String accountNumber) {
+        return 1;
 
     }
 
+    @Override
+    public int transferToAccount(String accountFrom, String accountTo, double amount) {
+        return 1;
+
+    }
+
+    @Override
+    public int addCard(String accountNumber) {
+        return 1;
+
+    }
+
+    @Override
+    public int removeCard(String accountNumber) {
+        return 1;
+    }
+
+    @Override
+    public void viewBalance() {
+
+    }
     @Override
     public void viewBalance(User user) {
 
@@ -81,16 +99,6 @@ public class Regular extends User implements Worker{
 
     @Override
     public void viewTransactions(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void addCard(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void removeCard(User user, String accountNumber) {
 
     }
 

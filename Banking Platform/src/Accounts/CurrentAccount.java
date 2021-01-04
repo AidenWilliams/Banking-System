@@ -18,7 +18,7 @@ public class CurrentAccount extends Account{
      * @param currency         The currency that the account is operating in
      * @see User
      */
-    public CurrentAccount(User[] beneficiaries, String IBAN, String accountNumber, float availableBalance, String currency) {
-        super(beneficiaries, IBAN, accountNumber, availableBalance, currency);
+    public CurrentAccount(User[] beneficiaries, String IBAN, String accountNumber, double availableBalance, String currency) {
+        super(beneficiaries, accountNumber, availableBalance, currency);
     }
 }

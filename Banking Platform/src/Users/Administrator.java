@@ -40,30 +40,48 @@ public class Administrator extends User implements Worker{
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, float availableBalance, String currency) {
-        return null;
+    public int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+        return 1;
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        return null;
+    public int createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
+        return 1;
     }
 
     @Override
-    public void closeAccount(User user) {
+    public int closeAccount(String accountNumber) {
+
+        return 1;
+    }
+
+    @Override
+    public int deleteAccount(String accountNumber) {
+        return 1;
 
     }
 
     @Override
-    public void deleteAccount(String accountNumber) {
+    public int transferToAccount(String accountFrom, String accountTo, double amount) {
+        return 1;
 
     }
 
     @Override
-    public void transferToAccount(User user, String accountFrom, String accountTo, float amount) {
+    public int addCard(String accountNumber) {
+        return 1;
 
     }
 
+    @Override
+    public int removeCard(String accountNumber) {
+        return 1;
+
+    }
+    @Override
+    public void viewBalance() {
+
+    }
     @Override
     public void viewBalance(User user) {
 
@@ -84,15 +102,6 @@ public class Administrator extends User implements Worker{
 
     }
 
-    @Override
-    public void addCard(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void removeCard(User user, String accountNumber) {
-
-    }
 
     //TODO: Add implementation of interfaces
 
