@@ -5,7 +5,6 @@ import Users.*;
 import Workflow.Job;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Launcher {
     public static void main (String[] args){
@@ -36,7 +35,7 @@ public class Launcher {
         Job.accounts.add(b);
 
         Job.Transfer(a.getAccountNumber(), b.getAccountNumber(), 500);
-
+        customer.viewBalance();
         System.out.println("Monkey");
     }
 }

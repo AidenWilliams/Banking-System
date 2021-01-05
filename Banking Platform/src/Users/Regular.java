@@ -1,7 +1,7 @@
 package Users;
 
 import Accounts.Account;
-
+import Workflow.JobRequest;
 import java.util.ArrayList;
 
 public class Regular extends User implements Worker{

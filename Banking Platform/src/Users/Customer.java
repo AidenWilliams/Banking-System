@@ -65,12 +65,29 @@ public class Customer extends User implements Basic{
 
     @Override
     public void viewBalance() {
-
+        ArrayList<Account> accounts = JobRequest.getAccounts(this);
+        for(Account account: accounts){
+            System.out.println("Account Number");
+            System.out.println(account.getAccountNumber());
+            System.out.println("Available Balance");
+            System.out.println(account.getAvailableBalance());
+            System.out.println("Balance On Hold");
+            System.out.println(account.getBalanceOnHold());
+        }
     }
 
     @Override
-    public void viewBalance(String account) {
-
+    public void viewBalance(String accountNumber) {
+        ArrayList<Account> accounts = JobRequest.getAccounts(this);
+        for(Account account: accounts){
+            if(account.getAccountNumber().equals(accountNumber)){
+                System.out.println("Available Balance");
+                System.out.println(account.getAvailableBalance());
+                System.out.println("Balance On Hold");
+                System.out.println(account.getBalanceOnHold());
+                return;
+            }
+        }
     }
 
     @Override
@@ -83,5 +100,5 @@ public class Customer extends User implements Basic{
 
     }
 
-    //TODO: Add implementation of interfaces
+    //TODO: Do Transactions
 }

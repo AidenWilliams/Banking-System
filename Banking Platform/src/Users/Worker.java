@@ -1,6 +1,7 @@
 package Users;
 
 public interface Worker extends Basic{
+    //TODO: make worker uniqueadd admin
     //TODO: Add javadoc
     User createUser(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber);
     User deleteUser(String id);

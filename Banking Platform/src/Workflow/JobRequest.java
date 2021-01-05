@@ -31,10 +31,10 @@ public class JobRequest {
     }
 
     public static ArrayList<Account> getAccounts(User user){
-        ArrayList<Account> searchResult = null;
+        ArrayList<Account> searchResult = new ArrayList<>();
         User[] ben;
 
-        for (Account account : Job.accounts ){
+        for (Account account: Job.accounts ){
             ben = account.getBeneficiaries();
             for (User b: ben)
                 if(b == user)
