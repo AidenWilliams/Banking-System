@@ -1,10 +1,11 @@
 package Users;
 
 import Accounts.Account;
+import Workflow.JobApproval;
 
 import java.util.ArrayList;
 
-public class Administrator extends User implements Worker{
+public class Administrator extends User implements Approver{
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -25,81 +26,13 @@ public class Administrator extends User implements Worker{
     }
 
     @Override
-    public User createUser(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
-        return null;
+    public void approveJobRequest(int JobID) {
+        JobApproval.ApproveJob(JobID);
     }
 
     @Override
-    public User deleteUser(String id) {
-        return null;
-    }
-
-    @Override
-    public void viewJobs() {
-
-    }
-
-    @Override
-    public int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
-        return 1;
-    }
-
-    @Override
-    public int createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        return 1;
-    }
-
-    @Override
-    public int closeAccount(String accountNumber) {
-
-        return 1;
-    }
-
-    @Override
-    public int deleteAccount(String accountNumber) {
-        return 1;
-
-    }
-
-    @Override
-    public int transferToAccount(String accountFrom, String accountTo, double amount) {
-        return 1;
-
-    }
-
-    @Override
-    public int addCard(String accountNumber) {
-        return 1;
-
-    }
-
-    @Override
-    public int removeCard(String accountNumber) {
-        return 1;
-
-    }
-    @Override
-    public void viewBalance() {
-
-    }
-    @Override
-    public void viewBalance(User user) {
-
-    }
-
-    @Override
-    public void viewBalance(String account) {
-
-    }
-
-    @Override
-    public void viewTransactions(User user) {
-
-    }
-
-    @Override
-    public void viewTransactions(User user, String accountNumber) {
-
+    public void removeJobRequest(int JobID) {
+        JobApproval.DeclineJob(JobID);
     }
 
 

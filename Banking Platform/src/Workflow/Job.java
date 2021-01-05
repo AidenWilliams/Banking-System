@@ -1,73 +1,28 @@
 package Workflow;
 
-import Accounts.Account;
-
-import java.io.*;
 import java.util.ArrayList;
 
 public class Job {
-    //Make not public
-    public static ArrayList<String> detail;
-    public static ArrayList<Object> item;
-    public static ArrayList<Account> accounts;
+    ArrayList<Object> details = new ArrayList<>();
+    ;
+    String description;
+    private int stage = 0;
 
-    public static void startUp(){
-        detail = new ArrayList<>();
-        item = new ArrayList<>();
-        accounts = new ArrayList<>();
-    }
-
-    static void AddAccount(){
-        //Change those account details
-    }
-    static void AmendAccount(String accountNumber, Account amendedAccount){
-        //Change those account details
-        for(int i = 0; i < accounts.size(); i++){
-            if(accounts.get(i).getAccountNumber().equals(accountNumber)){
-                accounts.set(i, amendedAccount);
-            }
-        }
+    Job(ArrayList<Object> details, String description) {
+        this.details = details;
+        this.description = description;
     }
 
-    static void AmendAccount(Account oldAccount, Account amendedAccount){
-        //Change those account details
-        accounts.set(accounts.indexOf(oldAccount), amendedAccount);
-    }
-    static void ViewAccount(){
-        //Get detail from account
-    }
-    static void DeleteAccount(){
-        //Remove the account from the file
-    }
-    static void AddUser(){
-        //Write User to file
-    }
-    static void AmendUser(){
-        //Change those user details
-    }
-    static void DeleteUser(){
-        //Remove the account from the file
-    }
-    static void getJobTypes(){
-        //get jobs
-    }
-    static void getJobsOfType(){
-        //blabla
+    Job(Object detail, String description) {
+        this.details.add(detail);
+        this.description = description;
     }
 
-    public static Account getAccount(String accountNumber){
-        for (Account account : Job.accounts )
-            if( account.getAccountNumber().equals(accountNumber))
-                return account;
-
-        return null;
+    public void setStage(int stage) {
+        this.stage = stage;
     }
 
-    public static void Transfer(String accountFrom, String accountTo, double amount){
-        Account f = getAccount(accountFrom), t = getAccount(accountTo);
-        f.setBalanceOnHold(f.getBalanceOnHold() - amount);
-        t.setAvailableBalance(t.getAvailableBalance() + amount);
-        AmendAccount(accountFrom, f);
-        AmendAccount(accountTo, t);
+    public int getStage() {
+        return stage;
     }
 }

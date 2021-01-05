@@ -65,7 +65,7 @@ public class Customer extends User implements Basic{
 
     @Override
     public void viewBalance() {
-        ArrayList<Account> accounts = JobRequest.getAccounts(this);
+        ArrayList<Account> accounts = JobRequest.getUserAccounts(this);
         for(Account account: accounts){
             System.out.println("Account Number");
             System.out.println(account.getAccountNumber());
@@ -78,7 +78,7 @@ public class Customer extends User implements Basic{
 
     @Override
     public void viewBalance(String accountNumber) {
-        ArrayList<Account> accounts = JobRequest.getAccounts(this);
+        ArrayList<Account> accounts = JobRequest.getUserAccounts(this);
         for(Account account: accounts){
             if(account.getAccountNumber().equals(accountNumber)){
                 System.out.println("Available Balance");

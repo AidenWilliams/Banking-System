@@ -2,17 +2,17 @@ package Launcher;
 
 import Accounts.Account;
 import Users.*;
-import Workflow.Job;
+import Workflow.*;
 
 import java.util.ArrayList;
+
+
 
 public class Launcher {
     public static void main (String[] args){
         ArrayList<String> arrayList = new ArrayList<>();
 
         arrayList.add("address1");
-
-        Job.startUp();
 
         Administrator administrator = new Administrator("2","Aiden", "Williams", arrayList,
                 "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421");
@@ -31,11 +31,14 @@ public class Launcher {
         a.setBalanceOnHold(500);
         a.setAvailableBalance(500);
 
-        Job.accounts.add(a);
-        Job.accounts.add(b);
+        Action.accounts.add(a);
+        Action.accounts.add(b);
 
-        Job.Transfer(a.getAccountNumber(), b.getAccountNumber(), 500);
+        Action.Transfer(a.getAccountNumber(), b.getAccountNumber(), 500);
         customer.viewBalance();
+
+        administrator.approveJobRequest(0);
+        administrator.approveJobRequest(0);
         System.out.println("Monkey");
     }
 }

@@ -8,33 +8,36 @@ import java.util.ArrayList;
 //Ok nvm
 
 public class JobRequest {
+
+
     public static int AddJobRequest(Object obj, String detail){
-        Job.detail.add(detail);
-        Job.item.add(obj);
-        return Job.detail.size();
+        Action.pendingJobs.add(new Job(obj, detail));
+        Action.pendingJobs.get(Action.pendingJobs.size() - 1).setStage(1);
+        return Action.pendingJobs.size();
     }
-    public static int AddJobRequest(Object obj1,Object obj2, String detail){
-        Job.detail.add(detail);
-        Job.detail.add(detail);
-        Job.item.add(obj1);
-        Job.item.add(obj2);
-        return Job.detail.size();
+    public static int AddJobRequest(Object obj1, Object obj2, String detail){
+        ArrayList<Object> details = new ArrayList<>();
+        details.add(obj1);
+        details.add(obj2);
+        Action.pendingJobs.add(new Job(details, detail));
+        Action.pendingJobs.get(Action.pendingJobs.size() - 1).setStage(1);
+        return Action.pendingJobs.size();
     }
     public static int AddJobRequest(Object obj1,Object obj2, Object obj3, String detail){
-        Job.detail.add(detail);
-        Job.detail.add(detail);
-        Job.detail.add(detail);
-        Job.item.add(obj1);
-        Job.item.add(obj2);
-        Job.item.add(obj3);
-        return Job.detail.size();
+        ArrayList<Object> details = new ArrayList<>();
+        details.add(obj1);
+        details.add(obj2);
+        details.add(obj3);
+        Action.pendingJobs.add(new Job(details, detail));
+        Action.pendingJobs.get(Action.pendingJobs.size() - 1).setStage(1);
+        return Action.pendingJobs.size();
     }
 
-    public static ArrayList<Account> getAccounts(User user){
+    public static ArrayList<Account> getUserAccounts(User user){
         ArrayList<Account> searchResult = new ArrayList<>();
         User[] ben;
 
-        for (Account account: Job.accounts ){
+        for (Account account: Action.accounts ){
             ben = account.getBeneficiaries();
             for (User b: ben)
                 if(b == user)
