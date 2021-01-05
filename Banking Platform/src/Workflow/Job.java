@@ -25,4 +25,20 @@ public class Job {
     public int getStage() {
         return stage;
     }
+
+    public ArrayList<Object> getDetails() {
+        return details;
+    }
+
+    public void setDetails(ArrayList<Object> details) {
+        this.details = details;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

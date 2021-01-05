@@ -38,7 +38,12 @@ public class Launcher {
         customer.viewBalance();
 
         administrator.approveJobRequest(0);
-        administrator.approveJobRequest(0);
+
+        Regular worker = new Regular("3","Aiden", "Williams", arrayList,
+                "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421");
+
+        worker.DoJob(0);
+
         System.out.println("Monkey");
     }
 }

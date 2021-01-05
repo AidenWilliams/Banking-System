@@ -35,7 +35,9 @@ public class Administrator extends User implements Approver{
         JobApproval.DeclineJob(JobID);
     }
 
+    public void viewJobs() {
 
+    }
     //TODO: Add implementation of interfaces
 
 }

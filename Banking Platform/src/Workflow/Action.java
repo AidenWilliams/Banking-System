@@ -3,6 +3,8 @@ package Workflow;
 import Accounts.Account;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Action {
     //Make not public
@@ -43,7 +45,7 @@ public class Action {
         //blabla
     }
 
-    static void AmendAccount(String accountNumber, Account amendedAccount){
+    public static void AmendAccount(String accountNumber, Account amendedAccount){
         //Change those account details
         for(int i = 0; i < accounts.size(); i++){
             if(accounts.get(i).getAccountNumber().equals(accountNumber)){
@@ -53,7 +55,7 @@ public class Action {
     }
     public static Account getAccount(String accountNumber){
         for (Account account : Action.accounts )
-            if( account.getAccountNumber().equals(accountNumber))
+            if(account.getAccountNumber().equals(accountNumber))
                 return account;
 
         return null;

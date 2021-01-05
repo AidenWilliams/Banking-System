@@ -8,8 +8,6 @@ import java.util.ArrayList;
 //Ok nvm
 
 public class JobRequest {
-
-
     public static int AddJobRequest(Object obj, String detail){
         Action.pendingJobs.add(new Job(obj, detail));
         Action.pendingJobs.get(Action.pendingJobs.size() - 1).setStage(1);

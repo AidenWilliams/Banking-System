@@ -1,6 +1,8 @@
 package Users;
 
 import Accounts.Account;
+import Workflow.Action;
+import Workflow.Job;
 import Workflow.JobRequest;
 import java.util.ArrayList;
 
@@ -20,8 +22,59 @@ public class Regular extends User implements Worker{
      * @param phoneNumber Phone of the user.
      */
     //TODO: Add javadoc
-    Regular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
+    public Regular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
+    }
+
+    public void DoJob(int JobID){
+        Job job = Action.approvedJobs.get(JobID);
+
+        /*public static Map<Integer, String> jobTypes = new HashMap<>()
+    {{
+        jobTypes.put(1, "CreateNewAccount");
+        jobTypes.put(2, "CloseAccount");
+        jobTypes.put(3, "DeleteAccount");
+        jobTypes.put(4, "Transfer");
+        jobTypes.put(5, "AddCard");
+        jobTypes.put(6, "RemoveCard");
+    }};
+
+         */
+        Action.completedJobs.add(job);
+        Action.approvedJobs.remove(JobID);
+
+        if(job.getDescription().equals("CreateNewAccount")){
+            if(job.getDetails().size() == 4){
+                createNewAccount(
+                        //TODO: I dont think this works by casting, might need to restructure jobs into a more oop fashion
+                        (User[]) job.getDetails().get(0),
+                        (String) job.getDetails().get(1),
+                        (Double) job.getDetails().get(2),
+                        (String) job.getDetails().get(3)
+                );
+            }else{
+                createNewAccount(
+                        (User[]) job.getDetails().get(0),
+                        (String) job.getDetails().get(1),
+                        (String) job.getDetails().get(2)
+                );
+            }
+        }else
+        if(job.getDescription().equals("CloseAccount")){
+
+        }else
+        if(job.getDescription().equals("DeleteAccount")){
+
+        }else
+        if(job.getDescription().equals("Transfer")){
+
+        }else
+        if(job.getDescription().equals("AddCard")){
+
+        }else
+        if(job.getDescription().equals("RemoveCard")){
+
+        }
     }
 
     @Override
