@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 
 
-public class Launcher {
+public class Launcher { // make launcher extend workflow class
     public static void main (String[] args){
         ArrayList<String> arrayList = new ArrayList<>();
 
@@ -22,6 +22,8 @@ public class Launcher {
 
 
         customer.createNewAccount(new User[] {customer}, "m", 1000,"EUR");
+
+
         customer.createNewAccount(new User[] {customer}, "n", 1000,"EUR");
 
         Account a = new Account(new User[] {customer}, "m", 1000,"EUR");
@@ -39,11 +41,14 @@ public class Launcher {
 
         administrator.approveJobRequest(0);
 
+
         Regular worker = new Regular("3","Aiden", "Williams", arrayList,
                 "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421");
 
         worker.DoJob(0);
 
+        worker.createUser("3","Aiden", "Williams", arrayList,
+                "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421", Customer.class);
         System.out.println("Monkey");
     }
 }

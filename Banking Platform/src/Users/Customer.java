@@ -1,6 +1,7 @@
 package Users;
 
 import Accounts.Account;
+import Workflow.JobApproval;
 import Workflow.JobRequest;
 import Workflow.Limits;
 
@@ -28,39 +29,64 @@ public class Customer extends User implements Basic{
 
     @Override
     public int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
-        Account account = new Account(beneficiaries, accountNumber, availableBalance, currency);
-        return JobRequest.AddJobRequest(account,"CreateNewAccount");
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(beneficiaries);
+        jobDetails.add(accountNumber);
+        jobDetails.add(availableBalance);
+        jobDetails.add(currency);
+
+        return JobRequest.AddJobRequest(jobDetails,"CreateNewAccount");
     }
 
     @Override
     public int createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        Account account = new Account(beneficiaries, accountNumber, 0, currency);
-        return JobRequest.AddJobRequest(account,"CreateNewAccount");
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(beneficiaries);
+        jobDetails.add(accountNumber);
+        jobDetails.add(currency);
+        return JobRequest.AddJobRequest(jobDetails, "CreateNewAccount");
     }
 
     @Override
     public int closeAccount(String accountNumber) {
-        return JobRequest.AddJobRequest(accountNumber,"CloseAccount");
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(accountNumber);
+        return JobRequest.AddJobRequest(jobDetails,"CloseAccount");
     }
 
     @Override
     public int deleteAccount(String accountNumber) {
-        return JobRequest.AddJobRequest(accountNumber,"DeleteAccount");
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(accountNumber);
+        return JobRequest.AddJobRequest(jobDetails,"DeleteAccount");
     }
 
     @Override
     public int transferToAccount(String accountFrom, String accountTo, double amount) {
-        return JobRequest.AddJobRequest(accountFrom,  accountTo,  amount, "Transfer");
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(accountFrom);
+        jobDetails.add(accountTo);
+        jobDetails.add(amount);
+        if(amount <= Limits.MAX_EASY_TRANSFER){
+            JobApproval.ApproveJob(JobRequest.AddJobRequest(jobDetails, "Transfer"));
+            return -1;
+        }else{
+            return JobRequest.AddJobRequest(jobDetails, "Transfer");
+        }
     }
 
     @Override
     public int addCard(String accountNumber) {
-        return JobRequest.AddJobRequest(accountNumber,"AddCard");
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(accountNumber);
+        return JobRequest.AddJobRequest(jobDetails,"AddCard");
     }
 
     @Override
     public int removeCard(String accountNumber) {
-        return JobRequest.AddJobRequest(accountNumber,"RemoveCard");
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(accountNumber);
+        return JobRequest.AddJobRequest(jobDetails,"RemoveCard");
     }
 
     @Override

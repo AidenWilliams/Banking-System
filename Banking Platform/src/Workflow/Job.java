@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Job {
     ArrayList<Object> details = new ArrayList<>();
-    ;
+
     String description;
     private int stage = 0;
 
