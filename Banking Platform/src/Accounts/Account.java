@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class Account {
     private User[] beneficiaries;
     private final String IBAN;
-    private String accountNumber;
+    private String number;
     private String currency;
     private double availableBalance;
     private double balanceOnHold;
@@ -40,16 +40,16 @@ public class Account {
      *
      * @param beneficiaries The beneficiaries of the account,for more information see also User
      * See <a href = https://en.wikipedia.org/wiki/Beneficiary>Beneficiary<a/>
-     * @param accountNumber Account Number
+     * @param number Account Number
      * @param availableBalance The available balance
      * @param currency The currency that the account is operating in
      * @see User
      */
-    public Account(User[] beneficiaries, String accountNumber,
+    public Account(User[] beneficiaries, String number,
                    double availableBalance, String currency) {
         this.beneficiaries = beneficiaries;
-        this.IBAN = "MT38" + getBIC() + accountNumber;
-        this.accountNumber = accountNumber;
+        this.IBAN = "MT38" + getBIC() + number;
+        this.number = number;
         this.availableBalance = availableBalance;
         this.balanceOnHold = 0f;
         this.currency = currency;
@@ -59,7 +59,7 @@ public class Account {
     protected Account(Account account){
         this.beneficiaries = account.beneficiaries;
         this.IBAN = account.IBAN;
-        this.accountNumber = account.accountNumber;
+        this.number = account.number;
         this.availableBalance = account.availableBalance;
         this.balanceOnHold = account.balanceOnHold;
         this.currency = account.currency;
@@ -91,15 +91,15 @@ public class Account {
     /**
      * @return The unique internal account number, different from the IBAN
      */
-    public String getAccountNumber() {
-        return accountNumber;
+    public String getNumber() {
+        return number;
     }
 
     /**
-     * @param accountNumber The unique internal account number, different from the IBAN
+     * @param number The unique internal account number, different from the IBAN
      */
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     /**

@@ -96,7 +96,7 @@ public class Customer extends User implements Requester {
         ArrayList<Account> accounts = JobRequest.getUserAccounts(this);
         for(Account account: accounts){
             System.out.println("Account Number");
-            System.out.println(account.getAccountNumber());
+            System.out.println(account.getNumber());
             System.out.println("Available Balance");
             System.out.println(account.getAvailableBalance());
             System.out.println("Balance On Hold");
@@ -108,7 +108,7 @@ public class Customer extends User implements Requester {
     public void viewBalance(String accountNumber) {
         ArrayList<Account> accounts = JobRequest.getUserAccounts(this);
         for(Account account: accounts){
-            if(account.getAccountNumber().equals(accountNumber)){
+            if(account.getNumber().equals(accountNumber)){
                 System.out.println("Available Balance");
                 System.out.println(account.getAvailableBalance());
                 System.out.println("Balance On Hold");

@@ -2,9 +2,13 @@ package Users;
 
 import Accounts.Account;
 import Accounts.Card;
+import Accounts.CreditCard;
+import Accounts.DebitCard;
 import Workflow.Action;
 import Workflow.Job;
 import Workflow.JobRequest;
+import Workflow.Limits;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,9 +81,9 @@ public class Regular extends User implements Worker{
                 createNewAccount(beneficiaries, accountNumber, currency);
                 break;
             }
-            case "AddCard": {
+            case "AddCard": {//fix
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
-                addCard(accountNumber);
+                //addCard(accountNumber);
                 break;
             }
             case "RemoveCard": {
@@ -160,7 +164,7 @@ public class Regular extends User implements Worker{
         }
         return -1;
     }
-
+    // make into interface as a super worker
     void createUser(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
         Action.users.add(new User(id, name, surname, addresses, DOB, email, phoneNumber));
     }
@@ -222,10 +226,19 @@ public class Regular extends User implements Worker{
         Action.Transfer(accountFrom, accountTo, 500);
     }
 
-    //Needs to be fixed to include Class<T>
     @Override
-    public void addCard(String accountNumber) {
-        Account account = Action.getAccount(accountNumber);
+    public void addCard(User user, String validTo, String cvv, boolean virtual, short status, double limit,
+                        Account account, double creditLimit, double interestRate) {
+        account.addCard(new CreditCard(user, validTo, cvv, "", virtual, status, limit, account,
+                                        creditLimit, interestRate, Limits.CREDIT_COUNTDOWN));
+        Action.AmendAccount(account.getNumber(), account);
+    }
+
+    @Override
+    public void addCard(User user, String validTo, String cvv, boolean virtual, short status, double limit,
+                        Account account) {
+        account.addCard(new DebitCard(user, validTo, cvv, "", virtual, status, limit, account));
+        Action.AmendAccount(account.getNumber(), account);
     }
 
     @Override
@@ -240,6 +253,7 @@ public class Regular extends User implements Worker{
             }
         }
         account.removeCard(card);
+        Action.AmendAccount(accountNumber, account);
     }
 
     @Override

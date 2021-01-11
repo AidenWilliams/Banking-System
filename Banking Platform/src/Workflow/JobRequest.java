@@ -45,6 +45,7 @@ public class JobRequest {
     }
 
     public static void RemoveJobRequest(int id){
-
+        Action.removedJobs.add(Action.pendingJobs.get(id));
+        Action.pendingJobs.remove(id);
     }
 }

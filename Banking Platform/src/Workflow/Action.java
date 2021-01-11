@@ -55,14 +55,14 @@ public class Action {
     public static void AmendAccount(String accountNumber, Account amendedAccount){
         //Change those account details
         for(int i = 0; i < accounts.size(); i++){
-            if(accounts.get(i).getAccountNumber().equals(accountNumber)){
+            if(accounts.get(i).getNumber().equals(accountNumber)){
                 accounts.set(i, amendedAccount);
             }
         }
     }
     public static Account getAccount(String accountNumber){
         for (Account account : Action.accounts )
-            if(account.getAccountNumber().equals(accountNumber))
+            if(account.getNumber().equals(accountNumber))
                 return account;
 
         return null;

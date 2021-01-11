@@ -36,7 +36,7 @@ public class Launcher { // make launcher extend workflow class
         Action.accounts.add(a);
         Action.accounts.add(b);
 
-        Action.Transfer(a.getAccountNumber(), b.getAccountNumber(), 500);
+        Action.Transfer(a.getNumber(), b.getNumber(), 500);
         customer.viewBalance();
 
         administrator.approveJobRequest(0);

@@ -1,21 +1,20 @@
 package Accounts;
 
+import Users.User;
+
 public class CreditCard extends Card{
     private double creditLimit;
     private double interestRate;
     private int daysBeforePayment;
 
 
-    public CreditCard(String name, String surname, String validTo, String cvv,
-                      String pin, boolean virtual, short status, double limit,
-                      double creditLimit, double interestRate, int daysBeforePayment,
-                      Account account) {
-        super(name, surname, validTo, cvv, pin, virtual, status, limit, account);
+    public CreditCard(User user, String validTo, String cvv, String pin, boolean virtual, short status, double limit,
+                      Account account, double creditLimit, double interestRate, int daysBeforePayment) {
+        super(user, validTo, cvv, pin, virtual, status, limit, account);
         this.creditLimit = creditLimit;
         this.interestRate = interestRate;
         this.daysBeforePayment = daysBeforePayment;
     }
-
     public double getCreditLimit() {
         return creditLimit;
     }

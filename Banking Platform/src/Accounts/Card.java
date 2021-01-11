@@ -4,9 +4,7 @@ import Users.User;
 // In banking cards are their own account
 public class Card extends Account{
     //TODO: Add javadoc
-    final private String name;
-    final private String surname;
-    final private String number;
+    final private User user;
     final private String validTo;
     final private String CVV;
     final private boolean virtual;
@@ -14,13 +12,12 @@ public class Card extends Account{
     private short status;
     private double limit;
 
-    public Card(String name, String surname, String validTo, String cvv,
+    public Card(User user, String validTo, String cvv,
                 String pin, boolean virtual, short status, double limit,
                 Account account){
         super(account);
-        this.name = name;
-        this.surname = surname;
-        this.number = account.getAccountNumber();
+        this.user = user;
+        this.setNumber(account.getNumber() + account.getCards().size());
         this.validTo = validTo;
         this.CVV = cvv;
         this.virtual = virtual;
@@ -30,15 +27,11 @@ public class Card extends Account{
     }
 
     public String getName() {
-        return name;
+        return user.getName();
     }
 
     public String getSurname() {
-        return surname;
-    }
-
-    public String getNumber() {
-        return number;
+        return user.getSurname();
     }
 
     public String getValidTo() {

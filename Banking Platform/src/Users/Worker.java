@@ -1,5 +1,7 @@
 package Users;
 
+import Accounts.Account;
+
 import java.util.ArrayList;
 
 public interface Worker extends Basic, BasicWorker {
@@ -9,7 +11,12 @@ public interface Worker extends Basic, BasicWorker {
     int deleteUser(String id);
     void createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency);
     void createNewAccount(User[] beneficiaries, String accountNumber, String currency);
-    void addCard(String accountNumber);
+    void addCard(User user, String validTo, String cvv, boolean virtual, short status, double limit,
+                 Account account, double creditLimit, double interestRate);
+    void addCard(User user, String validTo, String cvv, boolean virtual, short status, double limit,
+                 Account account);
+    // maybe add this to superuser
+    //void setPin();
     void removeCard(String accountNumber, String cardNumber);
     void closeAccount(String accountNumber);
     void deleteAccount(String accountNumber);
