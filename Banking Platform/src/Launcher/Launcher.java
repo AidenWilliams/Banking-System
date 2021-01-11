@@ -21,10 +21,10 @@ public class Launcher { // make launcher extend workflow class
                 "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421");
 
 
-        customer.createNewAccount(new User[] {customer}, "m", 1000,"EUR");
+        customer.requestCreateNewAccount(new User[] {customer}, "m", 1000,"EUR");
 
 
-        customer.createNewAccount(new User[] {customer}, "n", 1000,"EUR");
+        customer.requestCreateNewAccount(new User[] {customer}, "n", 1000,"EUR");
 
         Account a = new Account(new User[] {customer}, "m", 1000,"EUR");
         Account b = new Account(new User[] {customer}, "n", 1000,"EUR");

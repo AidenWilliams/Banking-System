@@ -7,7 +7,7 @@ import Workflow.Limits;
 
 import java.util.ArrayList;
 
-public class Customer extends User implements Basic{
+public class Customer extends User implements Requester {
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -28,7 +28,7 @@ public class Customer extends User implements Basic{
     }
 
     @Override
-    public int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+    public int requestCreateNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(beneficiaries);
         jobDetails.add(accountNumber);
@@ -39,7 +39,7 @@ public class Customer extends User implements Basic{
     }
 
     @Override
-    public int createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
+    public int requestCreateNewAccount(User[] beneficiaries, String accountNumber, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(beneficiaries);
         jobDetails.add(accountNumber);
@@ -48,25 +48,26 @@ public class Customer extends User implements Basic{
     }
 
     @Override
-    public int closeAccount(String accountNumber) {
+    public int requestCloseAccount(String accountNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(accountNumber);
         return JobRequest.AddJobRequest(jobDetails,"CloseAccount");
     }
 
     @Override
-    public int deleteAccount(String accountNumber) {
+    public int requestDeleteAccount(String accountNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(accountNumber);
         return JobRequest.AddJobRequest(jobDetails,"DeleteAccount");
     }
 
     @Override
-    public int transferToAccount(String accountFrom, String accountTo, double amount) {
+    public int requestTransferToAccount(String accountFrom, String accountTo, double amount) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(accountFrom);
         jobDetails.add(accountTo);
         jobDetails.add(amount);
+        JobRequest.putBalanceOnHold(accountFrom, amount);
         if(amount <= Limits.MAX_EASY_TRANSFER){
             JobApproval.ApproveJob(JobRequest.AddJobRequest(jobDetails, "Transfer"));
             return -1;
@@ -76,16 +77,17 @@ public class Customer extends User implements Basic{
     }
 
     @Override
-    public int addCard(String accountNumber) {
+    public int requestAddCard(String accountNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(accountNumber);
         return JobRequest.AddJobRequest(jobDetails,"AddCard");
     }
 
     @Override
-    public int removeCard(String accountNumber) {
+    public int requestRemoveCard(String accountNumber, String cardNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(accountNumber);
+        jobDetails.add(cardNumber);
         return JobRequest.AddJobRequest(jobDetails,"RemoveCard");
     }
 

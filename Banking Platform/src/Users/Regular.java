@@ -1,6 +1,7 @@
 package Users;
 
 import Accounts.Account;
+import Accounts.Card;
 import Workflow.Action;
 import Workflow.Job;
 import Workflow.JobRequest;
@@ -28,9 +29,6 @@ public class Regular extends User implements Worker{
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
-
-
-
     static <T> List<T> filter(Class<T> clazz, List<?> items) {
         return items.stream()
                 .filter(clazz::isInstance)
@@ -38,20 +36,10 @@ public class Regular extends User implements Worker{
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void DoJob(int JobID){
         Job job = Action.approvedJobs.get(JobID);
 
-        /*public static Map<Integer, String> jobTypes = new HashMap<>()
-    {{
-        jobTypes.put(1, "CreateNewAccount");
-        jobTypes.put(2, "CloseAccount");
-        jobTypes.put(3, "DeleteAccount");
-        jobTypes.put(4, "Transfer");
-        jobTypes.put(5, "AddCard");
-        jobTypes.put(6, "RemoveCard");
-    }};
-
-         */
         Action.completedJobs.add(job);
         Action.approvedJobs.remove(JobID);
 
@@ -96,7 +84,8 @@ public class Regular extends User implements Worker{
             }
             case "RemoveCard": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
-                removeCard(accountNumber);
+                String cardNumber = filter(String.class, job.getDetails()).get(1);
+                removeCard(accountNumber, cardNumber);
                 break;
             }
             case "CreateNewUser": {
@@ -108,7 +97,7 @@ public class Regular extends User implements Worker{
                 String DOB = filter(String.class, job.getDetails()).get(3);
                 String email = filter(String.class, job.getDetails()).get(4);
                 String phoneNumber = filter(String.class, job.getDetails()).get(5);
-                //createUser();
+                createUser(id, name, surname, addresses, DOB, email, phoneNumber);
                 break;
             }
             case "CreateNewCustomer": {
@@ -120,7 +109,7 @@ public class Regular extends User implements Worker{
                 String DOB = filter(String.class, job.getDetails()).get(3);
                 String email = filter(String.class, job.getDetails()).get(4);
                 String phoneNumber = filter(String.class, job.getDetails()).get(5);
-                //CreateNewCustomer();
+                createCustomer(id, name, surname, addresses, DOB, email, phoneNumber);
                 break;
             }
             case "CreateNewRegular": {
@@ -132,7 +121,7 @@ public class Regular extends User implements Worker{
                 String DOB = filter(String.class, job.getDetails()).get(3);
                 String email = filter(String.class, job.getDetails()).get(4);
                 String phoneNumber = filter(String.class, job.getDetails()).get(5);
-                //CreateNewRegular();
+                createRegular(id, name, surname, addresses, DOB, email, phoneNumber);
                 break;
             }
             case "CreateNewAdmin": {
@@ -144,7 +133,7 @@ public class Regular extends User implements Worker{
                 String DOB = filter(String.class, job.getDetails()).get(3);
                 String email = filter(String.class, job.getDetails()).get(4);
                 String phoneNumber = filter(String.class, job.getDetails()).get(5);
-                //CreateNewAdmin();
+                createAdmin(id, name, surname, addresses, DOB, email, phoneNumber);
                 break;
             }
         }
@@ -172,20 +161,20 @@ public class Regular extends User implements Worker{
         return -1;
     }
 
-    User createUser(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
-        return null;
+    void createUser(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
+        Action.users.add(new User(id, name, surname, addresses, DOB, email, phoneNumber));
     }
 
-    Customer createCustomer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
-        return null;
+    void createCustomer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
+        Action.users.add(new Customer(id, name, surname, addresses, DOB, email, phoneNumber));
     }
 
-    Regular createRegular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
-        return null;
+    void createRegular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
+        Action.regulars.add(new Regular(id, name, surname, addresses, DOB, email, phoneNumber));
     }
 
-    Administrator createAdmin(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
-        return null;
+    void createAdmin(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber){
+        Action.administrators.add(new Administrator(id, name, surname, addresses, DOB, email, phoneNumber));
     }
 
     @Override
@@ -206,42 +195,51 @@ public class Regular extends User implements Worker{
     //add id to job request?
 
     @Override
-    public int createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
-        return 1;
+    public void createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+        Action.accounts.add(new Account(beneficiaries, accountNumber, availableBalance, currency));
     }
 
     @Override
-    public int createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        return 1;
+    public void createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
+        Action.accounts.add(new Account(beneficiaries, accountNumber, 0, currency));
     }
 
     @Override
-    public int closeAccount(String accountNumber) {
-        return 1;
-
+    public void closeAccount(String accountNumber) {
+        Account account = Action.getAccount(accountNumber);
+        assert account != null;
+        Action.closedAccounts.add(account);
+        Action.accounts.remove(account);
     }
 
     @Override
-    public int deleteAccount(String accountNumber) {
-        return 1;
-
+    public void deleteAccount(String accountNumber) {
+        Action.closedAccounts.remove(Action.getAccount(accountNumber));
     }
 
     @Override
-    public int transferToAccount(String accountFrom, String accountTo, double amount) {
-        return 1;
+    public void transferToAccount(String accountFrom, String accountTo, double amount) {
+        Action.Transfer(accountFrom, accountTo, 500);
+    }
 
+    //Needs to be fixed to include Class<T>
+    @Override
+    public void addCard(String accountNumber) {
+        Account account = Action.getAccount(accountNumber);
     }
 
     @Override
-    public int addCard(String accountNumber) {
-        return 1;
-
-    }
-
-    @Override
-    public int removeCard(String accountNumber) {
-        return 1;
+    public void removeCard(String accountNumber, String cardNumber) {
+        Account account = Action.getAccount(accountNumber);
+        assert account != null;
+        ArrayList<Card> cards = account.getCards();
+        Card card = null;
+        for (Card c : cards){
+            if(c.getNumber().equals(cardNumber)){
+                card = c;
+            }
+        }
+        account.removeCard(card);
     }
 
     @Override

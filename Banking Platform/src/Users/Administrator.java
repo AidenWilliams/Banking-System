@@ -34,7 +34,7 @@ public class Administrator extends User implements Approver{
     public void removeJobRequest(int JobID) {
         JobApproval.DeclineJob(JobID);
     }
-
+    @Override
     public void viewJobs() {
 
     }

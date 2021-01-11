@@ -1,10 +1,12 @@
 package Workflow;
 
 import Accounts.Account;
+import Users.Administrator;
+import Users.Customer;
+import Users.Regular;
+import Users.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Action {
     //Make not public
@@ -13,6 +15,11 @@ public class Action {
     public static ArrayList<Job> completedJobs = new ArrayList<>();
     public static ArrayList<Job> removedJobs = new ArrayList<>();
     public static ArrayList<Account> accounts = new ArrayList<>();
+    public static ArrayList<Account> closedAccounts = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
+    public static ArrayList<Customer> customers = new ArrayList<>();
+    public static ArrayList<Regular> regulars = new ArrayList<>();
+    public static ArrayList<Administrator> administrators = new ArrayList<>();
 
 
     static void AddAccount(){

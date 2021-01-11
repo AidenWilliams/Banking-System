@@ -27,6 +27,23 @@ public class JobRequest {
     return searchResult;
     }
 
+    public static void putBalanceOnHold(String accountNumber, double amount){
+        Account account = Action.getAccount(accountNumber);
+        assert account != null;
+        account.setAvailableBalance(account.getAvailableBalance() - amount);
+        account.setBalanceOnHold(account.getBalanceOnHold() + amount);
+        Action.AmendAccount(accountNumber, account);
+    }
+
+    public static void releaseBalanceFromHold(String accountNumber, double amount){
+        Account account = Action.getAccount(accountNumber);
+        assert account != null;
+        account.setBalanceOnHold(account.getBalanceOnHold() - amount);
+        account.setAvailableBalance(account.getAvailableBalance() + amount);
+        Action.AmendAccount(accountNumber, account);
+
+    }
+
     public static void RemoveJobRequest(int id){
 
     }
