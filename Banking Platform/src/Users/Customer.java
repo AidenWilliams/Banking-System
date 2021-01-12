@@ -1,4 +1,7 @@
 package Users;
+import Accounts.Account;
+import Workflow.Instruction;
+
 import java.util.ArrayList;
 
 public abstract class Customer extends User {
@@ -17,16 +20,21 @@ public abstract class Customer extends User {
      * @param phoneNumber Phone of the user.
      */
     //Account
-    String account;
+    ArrayList<Account> accounts;
     Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
-             String phoneNumber, String account) {
+             String phoneNumber, ArrayList<Account> accounts) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
-        this.account = account;
+        this.accounts = (accounts);
     }
 
     //do getter/setter for account
 
     abstract String viewBalance();
+    abstract String viewBalance(String accountNumber);
     abstract String viewTransactions();
-    abstract String  viewTransactions(String accountNumber);
+    abstract String viewTransactions(String accountNumber);
+    abstract void addInstruction(String instruction);
+    abstract void removeInstruction(int id);
+    abstract String viewInstruction(Instruction instruction);
+    abstract String viewInstructions();
 }
