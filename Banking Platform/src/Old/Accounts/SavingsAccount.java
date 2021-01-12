@@ -1,6 +1,6 @@
-package Accounts;
+package Old.Accounts;
 
-import Users.User;
+import Old.Users.User;
 
 public class SavingsAccount extends Account{
     /**

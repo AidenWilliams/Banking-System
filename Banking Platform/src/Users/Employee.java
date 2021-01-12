@@ -1,7 +1,8 @@
 package Users;
+
 import java.util.ArrayList;
 
-public abstract class Customer extends User {
+public abstract class Employee extends User {
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -16,17 +17,10 @@ public abstract class Customer extends User {
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    //Account
-    String account;
-    Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
-             String phoneNumber, String account) {
+    Employee(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
-        this.account = account;
     }
 
-    //do getter/setter for account
-
-    abstract String viewBalance();
-    abstract String viewTransactions();
-    abstract String  viewTransactions(String accountNumber);
+    abstract void doJob(int JobID);
+    abstract String viewJobs();
 }

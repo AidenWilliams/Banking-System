@@ -1,6 +1,6 @@
-package Accounts;
+package Old.Accounts;
 
-import Users.User;
+import Old.Users.User;
 // In banking cards are their own account
 public class Card extends Account{
     //TODO: Add javadoc

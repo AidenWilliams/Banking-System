@@ -1,13 +1,13 @@
-package Users;
+package Old.Users;
 
-import Accounts.Account;
-import Accounts.Card;
-import Accounts.CreditCard;
-import Accounts.DebitCard;
-import Workflow.Action;
-import Workflow.Job;
-import Workflow.JobRequest;
-import Workflow.Limits;
+import Old.Accounts.Account;
+import Old.Accounts.Card;
+import Old.Accounts.CreditCard;
+import Old.Accounts.DebitCard;
+import Old.Workflow.Action;
+import Old.Workflow.Job;
+import Old.Workflow.JobRequest;
+import Old.Workflow.Limits;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,11 +189,13 @@ public class Regular extends User implements Worker{
     }
 
     @Override
-    public void viewJobs() {
+    public String viewJobs() {
         int counter = 0;
+        String output = "";
         for(Job approvedJob: Action.approvedJobs){
-            System.out.println(counter++ + ":   " + approvedJob.getDetails());
+            output += counter++ + ":   " + approvedJob.getDetails();
         }
+        return output;
     }
 
     //add id to job request?
@@ -257,17 +259,17 @@ public class Regular extends User implements Worker{
     }
 
     @Override
-    public void viewBalance() {
-
+    public String viewBalance() {
+        return "";
     }
     @Override
-    public void viewBalance(User user) {
-
+    public String viewBalance(User user) {
+        return "";
     }
 
     @Override
-    public void viewBalance(String account) {
-
+    public String viewBalance(String account) {
+        return "";
     }
 
     @Override

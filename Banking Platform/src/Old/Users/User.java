@@ -1,4 +1,4 @@
-package Users;
+package Old.Users;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * @author aiden
  * @version 1.2
  */
-public abstract class User {
+public class User {
     private String id;
     private String name;
     private String surname;
@@ -36,20 +36,19 @@ public abstract class User {
 
     /**
      * <p>
-     * Constructor method to create a new User, all variables declared above must be initialised in order to create
-     * a new User.
+     *      Constructor method to create a new User, all variables declared above must be initialised in order to create
+     *      a new User.
      * </p>
-     *
-     * @param id          Id of the User. Could be id card or passport number
-     * @param name        Name of the User.
-     * @param surname     Surname of the User.
-     * @param addresses   Array of the user addresses, Must have at least 1.
-     * @param DOB         Date of Birth of the user.
-     * @param email       Email of the user.
+     * @param id Id of the User. Could be id card or passport number
+     * @param name Name of the User.
+     * @param surname Surname of the User.
+     * @param addresses Array of the user addresses, Must have at least 1.
+     * @param DOB Date of Birth of the user.
+     * @param email Email of the user.
      * @param phoneNumber Phone of the user.
      */
     User(String id, String name, String surname, ArrayList<String> addresses,
-         String DOB, String email, String phoneNumber) {
+         String DOB, String email, String phoneNumber){
         this.id = id;
         this.name = name;
         this.surname = surname;

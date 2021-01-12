@@ -1,5 +1,3 @@
-package Users;
-
-import java.util.ArrayList;
+package Old.Users;
 
 public class SuperRegular{}// extends regular implements Worker, Approver

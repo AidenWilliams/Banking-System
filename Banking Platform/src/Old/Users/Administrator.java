@@ -1,7 +1,6 @@
-package Users;
+package Old.Users;
 
-import Accounts.Account;
-import Workflow.JobApproval;
+import Old.Workflow.JobApproval;
 
 import java.util.ArrayList;
 
@@ -35,8 +34,13 @@ public class Administrator extends User implements Approver{
         JobApproval.DeclineJob(JobID);
     }
     @Override
-    public void viewJobs() {
+    public String viewJobs() {
+        return "";
+    }
 
+    @Override
+    public String viewBalance(User user) {
+        return null;
     }
     //TODO: Add implementation of interfaces
 

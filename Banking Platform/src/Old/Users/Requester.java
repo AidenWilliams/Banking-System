@@ -1,5 +1,4 @@
-package Users;
-import Accounts.Account;
+package Old.Users;
 
 public interface Requester extends Basic{
     //TODO: Add javadoc

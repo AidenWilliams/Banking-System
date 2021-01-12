@@ -1,6 +1,6 @@
-package Accounts;
+package Old.Accounts;
 
-import Users.User;
+import Old.Users.User;
 
 //The default Card is a debit card
 public class DebitCard extends Card{
