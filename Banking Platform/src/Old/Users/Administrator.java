@@ -1,8 +1,10 @@
-package Users;
+package Old.Users;
+
+import Old.Workflow.JobApproval;
 
 import java.util.ArrayList;
 
-public class Administrator extends Employee implements Approver{
+public class Administrator extends User implements Approver{
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -17,27 +19,29 @@ public class Administrator extends Employee implements Approver{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    Administrator(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
+    //TODO: Add javadoc
+    public Administrator(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
     @Override
     public void approveJobRequest(int JobID) {
-
+        JobApproval.ApproveJob(JobID);
     }
 
     @Override
     public void removeJobRequest(int JobID) {
-
+        JobApproval.DeclineJob(JobID);
+    }
+    @Override
+    public String viewJobs() {
+        return "";
     }
 
     @Override
-    void doJob(int JobID) {
-
-    }
-
-    @Override
-    String viewJobs() {
+    public String viewBalance(User user) {
         return null;
     }
+    //TODO: Add implementation of interfaces
+
 }

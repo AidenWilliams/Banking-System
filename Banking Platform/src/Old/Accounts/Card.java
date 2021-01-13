@@ -1,10 +1,8 @@
-package Accounts;
+package Old.Accounts;
 
-import Old.Accounts.Account;
 import Old.Users.User;
-
 // In banking cards are their own account
-public abstract class Card extends Account {
+public class Card extends Account{
     //TODO: Add javadoc
     final private User user;
     final private String validTo;

@@ -1,10 +1,8 @@
 package Users;
 
-import Accounts.Account;
-
 import java.util.ArrayList;
 
-public class Regular extends User implements Worker{
+public class Regular extends Employee implements Requester{
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -19,80 +17,42 @@ public class Regular extends User implements Worker{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    //TODO: Add javadoc
     Regular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
     @Override
-    public User createUser(String name, String surname, String[] addresses, String DOB, String email, String phoneNumber) {
+    void doJob(int JobID) {
+
+    }
+
+    @Override
+    String viewJobs() {
         return null;
     }
 
     @Override
-    public User deleteUser(String id) {
-        return null;
-    }
-
-    @Override
-    public void viewJobs() {
+    public void requestCreateNewAccount(Customer[] beneficiaries, String accountNumber, double availableBalance, String currency) {
 
     }
 
     @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
-        return null;
-    }
-
-    @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        return null;
-    }
-
-    @Override
-    public void closeAccount(User user) {
+    public void requestCreateNewAccount(Customer[] beneficiaries, String accountNumber, String currency) {
 
     }
 
     @Override
-    public void deleteAccount(String accountNumber) {
+    public void requestCloseAccount(String accountNumber) {
 
     }
 
     @Override
-    public void transferToAccount(User user, String accountFrom, String accountTo, double amount) {
+    public void requestAddCard(String accountNumber) {
 
     }
 
     @Override
-    public void viewBalance(User user) {
+    public void requestCloseCard(String accountNumber, String cardNumber) {
 
     }
-
-    @Override
-    public void viewBalance(String account) {
-
-    }
-
-    @Override
-    public void viewTransactions(User user) {
-
-    }
-
-    @Override
-    public void viewTransactions(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void addCard(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void removeCard(User user, String accountNumber) {
-
-    }
-
-    //TODO: Add implementation of interfaces
 }

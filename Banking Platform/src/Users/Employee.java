@@ -2,7 +2,7 @@ package Users;
 
 import java.util.ArrayList;
 
-public class Administrator extends Employee implements Approver{
+public abstract class Employee extends User {
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -17,27 +17,10 @@ public class Administrator extends Employee implements Approver{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    Administrator(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
+    Employee(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
-    @Override
-    public void approveJobRequest(int JobID) {
-
-    }
-
-    @Override
-    public void removeJobRequest(int JobID) {
-
-    }
-
-    @Override
-    void doJob(int JobID) {
-
-    }
-
-    @Override
-    String viewJobs() {
-        return null;
-    }
+    abstract void doJob(int JobID);
+    abstract String viewJobs();
 }

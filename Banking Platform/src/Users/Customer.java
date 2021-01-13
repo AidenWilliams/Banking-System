@@ -1,11 +1,10 @@
 package Users;
-
 import Accounts.Account;
-import Workflow.JobRequest;
+import Workflow.Instruction;
 
 import java.util.ArrayList;
 
-public class Customer extends User implements Basic{
+public abstract class Customer extends User {
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -20,67 +19,22 @@ public class Customer extends User implements Basic{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    //TODO: Add javadoc
-    Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
+    //Account
+    ArrayList<Account> accounts;
+    Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
+             String phoneNumber, ArrayList<Account> accounts) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
+        this.accounts = (accounts);
     }
 
-    @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, double availableBalance, String currency) {
-        Account account = new Account(beneficiaries, accountNumber, availableBalance, currency);
-        JobRequest.AddJobRequest(account,"CreateNewAccount");
-        return account;
-    }
+    //do getter/setter for account
 
-    @Override
-    public Account createNewAccount(User[] beneficiaries, String accountNumber, String currency) {
-        return null;
-    }
-
-    @Override
-    public void closeAccount(User user) {
-
-    }
-
-    @Override
-    public void deleteAccount(String accountNumber) {
-
-    }
-
-    @Override
-    public void transferToAccount(User user, String accountFrom, String accountTo, double amount) {
-
-    }
-
-    @Override
-    public void viewBalance(User user) {
-
-    }
-
-    @Override
-    public void viewBalance(String account) {
-
-    }
-
-    @Override
-    public void viewTransactions(User user) {
-
-    }
-
-    @Override
-    public void viewTransactions(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void addCard(User user, String accountNumber) {
-
-    }
-
-    @Override
-    public void removeCard(User user, String accountNumber) {
-
-    }
-
-    //TODO: Add implementation of interfaces
+    abstract String viewBalance();
+    abstract String viewBalance(String accountNumber);
+    abstract String viewTransactions();
+    abstract String viewTransactions(String accountNumber);
+    abstract void addInstruction(String instruction);
+    abstract void removeInstruction(int id);
+    abstract String viewInstruction(Instruction instruction);
+    abstract String viewInstructions();
 }

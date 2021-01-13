@@ -1,6 +1,5 @@
-package Accounts;
-import Users.Customer;
-import Users.User;
+package Old.Accounts;
+import Old.Users.User;
 
 import java.util.ArrayList;
 
@@ -23,8 +22,8 @@ import java.util.ArrayList;
  * @author aiden
  * @version 1.1
  */
-public abstract class Account {
-    private Customer[] beneficiaries;
+public class Account {
+    private User[] beneficiaries;
     private final String IBAN;
     private String number;
     private String currency;
@@ -32,7 +31,6 @@ public abstract class Account {
     private double balanceOnHold;
     private boolean status;
     private ArrayList<Card> cards;
-    private ArrayList<Transaction> transactions;
 
     /**
      * <p>
@@ -47,7 +45,7 @@ public abstract class Account {
      * @param currency The currency that the account is operating in
      * @see User
      */
-    public Account(Customer[] beneficiaries, String number,
+    public Account(User[] beneficiaries, String number,
                    double availableBalance, String currency) {
         this.beneficiaries = beneficiaries;
         this.IBAN = "MT38" + getBIC() + number;
@@ -56,7 +54,6 @@ public abstract class Account {
         this.balanceOnHold = 0f;
         this.currency = currency;
         this.status = true;
-        transactions = new ArrayList<>();
     }
 
     protected Account(Account account){
@@ -80,7 +77,7 @@ public abstract class Account {
     /**
      * @param beneficiaries Sets the beneficiary for the account
      */
-    public void setBeneficiaries(Customer[] beneficiaries) {
+    public void setBeneficiaries(User[] beneficiaries) {
         this.beneficiaries = beneficiaries;
     }
 
@@ -178,6 +175,10 @@ public abstract class Account {
     public ArrayList<Card>  getCards() {
         return cards;
     }
+
+    public void setCards(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
     //touch this
     public void addCard(Card card) {
         this.cards.add(card);
@@ -185,13 +186,5 @@ public abstract class Account {
 
     public void removeCard(Card card) {
         this.cards.removeIf(c -> c == card);
-    }
-
-    public void addTransaction(Transaction transaction){
-        this.transactions.add(transaction);
-    }
-
-    public ArrayList<Transaction> getTransactions(){
-        return this.transactions;
     }
 }
