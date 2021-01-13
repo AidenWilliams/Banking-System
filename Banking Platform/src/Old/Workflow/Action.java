@@ -64,7 +64,6 @@ public class Action {
         for (Account account : Action.accounts )
             if(account.getNumber().equals(accountNumber))
                 return account;
-
         return null;
     }
     public static void Transfer(String accountFrom, String accountTo, double amount){

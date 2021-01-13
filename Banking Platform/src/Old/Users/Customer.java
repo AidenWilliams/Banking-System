@@ -3,7 +3,7 @@ package Old.Users;
 import Old.Accounts.Account;
 import Old.Workflow.JobApproval;
 import Old.Workflow.JobRequest;
-import Old.Workflow.Limits;
+import Workflow.Limits;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,9 @@ package Users;
 
 import Accounts.Account;
 import Accounts.Transaction;
+import Old.Workflow.JobApproval;
 import Old.Workflow.JobRequest;
+import Workflow.Limits;
 import Workflow.Instruction;
 import Workflow.Launcher;
 
@@ -93,7 +95,7 @@ public class RetailCustomer extends Customer{
         StringBuilder output = new StringBuilder();
         output.append(instruction.getDetail()).append("\t");
         output.append(instruction.getStatus()).append("\t");
-        output.append(instruction.getAssignedTo());
+        output.append(instruction.getAssignee());
         return output.toString();
     }
 
@@ -104,8 +106,29 @@ public class RetailCustomer extends Customer{
         for(Instruction instruction: Launcher.instructions){
             output.append("Instruction List\n");
             output.append("ID\tDetail\tStatus\tAssigned\n");
-            output.append(++counter).append("\t").append(viewInstruction(instruction)).append("\n");
+            output.append(counter++).append("\t").append(viewInstruction(instruction)).append("\n");
         }
         return output.toString();
+    }
+
+    @Override
+    public void requestTransferToAccount(String detail, String accountFrom, String accountTo, double amount) {
+        Account from = getAccount(accountFrom);
+        if(from == null) return; //bad
+
+        from.setAvailableBalance(from.getAvailableBalance() - amount);
+        from.setBalanceOnHold(from.getBalanceOnHold() + amount);
+
+        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(this);
+        jobDetails.add(detail);
+        jobDetails.add(accountFrom);
+        jobDetails.add(accountTo);
+        jobDetails.add(amount);
+        if(amount <= Limits.MAX_EASY_TRANSFER){
+            //Add it as an approved job
+        }else{
+            //Add it as a normal job
+        }
     }
 }

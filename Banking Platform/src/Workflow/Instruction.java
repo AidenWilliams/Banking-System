@@ -1,19 +1,16 @@
 package Workflow;
 
-import Accounts.Account;
 import Users.Customer;
 import Users.Employee;
 
-public class Instruction {
+public class Instruction extends Status{
     private String detail;
     //TODO: map for this
-    private String status;
     private Customer from;
-    private Employee assignedTo;
+    private Employee assignee;
 
     public Instruction(String detail, Customer from) {
         this.detail = detail;
-        this.status = "pending";
         this.from = from;
     }
 
@@ -22,19 +19,16 @@ public class Instruction {
         return detail;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public Customer getFrom() {
         return from;
     }
 
-    public Employee getAssignedTo() {
-        return assignedTo;
+    public Employee getAssignee() {
+        return assignee;
     }
 
-    public void setAssignedTo(Employee assignedTo) {
-        this.assignedTo = assignedTo;
+    public void setAssignee(Employee assignee) {
+        this.assignee = assignee;
     }
+
 }

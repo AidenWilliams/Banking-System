@@ -7,7 +7,7 @@ import Old.Accounts.DebitCard;
 import Old.Workflow.Action;
 import Old.Workflow.Job;
 import Old.Workflow.JobRequest;
-import Old.Workflow.Limits;
+import Workflow.Limits;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -56,24 +56,25 @@ public abstract class Account {
         this.balanceOnHold = 0f;
         this.currency = currency;
         this.status = true;
-        transactions = new ArrayList<>();
+        this.transactions = new ArrayList<>();
     }
 
-    protected Account(Account account){
+    public Account(Account account) {
         this.beneficiaries = account.beneficiaries;
         this.IBAN = account.IBAN;
         this.number = account.number;
         this.availableBalance = account.availableBalance;
-        this.balanceOnHold = account.balanceOnHold;
+        this.balanceOnHold = 0f;
         this.currency = account.currency;
-        this.status = account.status;
-        this.cards = account.cards;
+        this.status = true;
+        this.transactions = account.transactions;
     }
+
     //TODO: Add javadoc to cards
     /**
      * @return The beneficiary of the account
      */
-    public User[] getBeneficiaries() {
+    public Customer[] getBeneficiaries() {
         return beneficiaries;
     }
 
