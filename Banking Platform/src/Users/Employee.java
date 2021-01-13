@@ -23,7 +23,6 @@ public abstract class Employee extends User {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
     // Reasoning is that all employees can view their joblit and do the job hey want to
-    abstract void doJob(int JobID);
     abstract String viewJobs();
     static <T> List<T> filter(Class<T> clazz, List<?> items) {
         return items.stream()

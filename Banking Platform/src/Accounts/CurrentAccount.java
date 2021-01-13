@@ -1,7 +1,6 @@
 package Accounts;
 
 import Users.Customer;
-
 import java.util.ArrayList;
 
 public class CurrentAccount extends Account{

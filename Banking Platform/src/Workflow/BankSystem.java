@@ -5,7 +5,7 @@ import Users.Customer;
 
 import java.util.ArrayList;
 
-public class Launcher {
+public class BankSystem {
     public static ArrayList<Customer> customers = new ArrayList<>();
     public static ArrayList<Instruction> instructions = new ArrayList<>();
     public static ArrayList<Job> jobs = new ArrayList<>();
@@ -33,7 +33,6 @@ public class Launcher {
     }
 
     public static void AmendAccount(String number, Account amendedAccount){
-        //Change those account details
         for(Customer customer: customers) {
             if (customer.getAccount(number).getNumber().equals(number)) {
                 customer.setAccount(amendedAccount);

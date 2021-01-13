@@ -2,9 +2,7 @@ package Users;
 
 import Accounts.*;
 import Workflow.Job;
-import Workflow.Launcher;
-
-import javax.swing.plaf.ColorUIResource;
+import Workflow.BankSystem;
 import java.util.ArrayList;
 
 public class Regular extends Employee implements Requester{
@@ -22,13 +20,12 @@ public class Regular extends Employee implements Requester{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    Regular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
+    public Regular(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
-    @Override
     void doJob(int JobID) {
-        Job job = Launcher.jobs.get(JobID);
+        Job job = BankSystem.jobs.get(JobID);
         job.markInProgress();
 
         switch (job.getDescription()) {
@@ -42,14 +39,14 @@ public class Regular extends Employee implements Requester{
                         if(filter(SavingsAccount.class, job.getDetails()).size() == 1){
                             SavingsAccount ac = new SavingsAccount(beneficiaries, accountNumber,
                                                             availableBalance, currency);
-                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                            BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
                         }
                     }
                     if(filter(SavingsAccount.class, job.getDetails()).size() == 0){
                         if(filter(CurrentAccount.class, job.getDetails()).size() == 1){
                             CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
                                     availableBalance, currency);
-                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                            BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
                         }
                     }
                     //error
@@ -62,14 +59,14 @@ public class Regular extends Employee implements Requester{
                         if(filter(SavingsAccount.class, job.getDetails()).size() == 1){
                             SavingsAccount ac = new SavingsAccount(beneficiaries, accountNumber,
                                     0, currency);
-                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                            BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
                         }
                     }
                     if(filter(SavingsAccount.class, job.getDetails()).size() == 0){
                         if(filter(CurrentAccount.class, job.getDetails()).size() == 1){
                             CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
                                     0, currency);
-                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                            BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
                         }
                     }
                     //error
@@ -79,21 +76,21 @@ public class Regular extends Employee implements Requester{
                 break;
             case "Close Account": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
-                Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).getAccount(accountNumber).setStatus(false);
+                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).getAccount(accountNumber).setStatus(false);
                 break;
             }
-            case "Add Card": {//fix
+            case "Add Card": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 if(filter(DebitCard.class, job.getDetails()).size() == 0) {
                     if (filter(CreditCard.class, job.getDetails()).size() == 1) {
-                        CreditCard cc = new CreditCard(Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)),
+                        CreditCard cc = new CreditCard(BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)),
                                 "12/12/2999", // so safe wow
                                 accountNumber.substring(accountNumber.length() - 3),
                                 accountNumber,
                                 "",
                                 false,
                                 -1.0);
-                        Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).getAccount(accountNumber).addCard(cc);
+                        BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).getAccount(accountNumber).addCard(cc);
                     }
                 }
                 break;
@@ -101,11 +98,11 @@ public class Regular extends Employee implements Requester{
             case "Remove Card": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 String cardNumber = filter(String.class, job.getDetails()).get(1);
-                //removeCard(accountNumber, cardNumber);
+
+                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).getAccount(accountNumber).removeCard(cardNumber);
                 break;
             }
         }
-
         job.markComplete();
     }
 
@@ -114,10 +111,10 @@ public class Regular extends Employee implements Requester{
         StringBuilder output = new StringBuilder();
         output.append("Jobs\n");
         output.append("ID\tDetails\tStatus\n");
-        for(int i = 0; i < Launcher.jobs.size(); i++)
-            if(Launcher.jobs.get(i).getAssignee() == this)
-                output.append(i).append("\t").append(Launcher.jobs.get(i).getDetails())
-                                .append("\t").append(Launcher.jobs.get(i).getStatus()).append("\n");
+        for(int i = 0; i < BankSystem.jobs.size(); i++)
+            if(BankSystem.jobs.get(i).getAssignee() == this)
+                output.append(i).append("\t").append(BankSystem.jobs.get(i).getDetails())
+                                .append("\t").append(BankSystem.jobs.get(i).getStatus()).append("\n");
         return output.toString();
     }
 
@@ -125,22 +122,22 @@ public class Regular extends Employee implements Requester{
         StringBuilder output = new StringBuilder();
         output.append("Jobs\n");
         output.append("ID\tDetails\n");
-        for(int i = 0; i < Launcher.instructions.size(); i++)
-            if(Launcher.instructions.get(i).getAssignee() == this)
-                output.append(i).append("\t").append(Launcher.jobs.get(i).getDetails()).append("\n");
+        for(int i = 0; i < BankSystem.instructions.size(); i++)
+            if(BankSystem.instructions.get(i).getAssignee() == this)
+                output.append(i).append("\t").append(BankSystem.jobs.get(i).getDetails()).append("\n");
         return output.toString();
     }
 
     public void doTransaction(String detail, String accountFrom, String accountTo, double amount){
-        Account f = Launcher.getAccount(accountFrom);
-        Account t = Launcher.getAccount(accountFrom);
+        Account f = BankSystem.getAccount(accountFrom);
+        Account t = BankSystem.getAccount(accountFrom);
         f.setBalanceOnHold(f.getBalanceOnHold() - amount);
         t.setAvailableBalance(t.getAvailableBalance() + amount);
         f.addTransaction(new Transaction(detail, accountFrom, accountTo, amount));
         t.addTransaction(new Transaction(detail, accountFrom, accountTo, amount));
 
-        Launcher.AmendAccount(accountFrom, f);
-        Launcher.AmendAccount(accountTo, t);
+        BankSystem.AmendAccount(accountFrom, f);
+        BankSystem.AmendAccount(accountTo, t);
     }
 
     @Override
@@ -151,7 +148,7 @@ public class Regular extends Employee implements Requester{
         jobDetails.add(accountNumber);
         jobDetails.add(availableBalance);
         jobDetails.add(currency);
-        Launcher.jobs.add(new Job(jobDetails, "Create New Account"));
+        BankSystem.jobs.add(new Job(jobDetails, "Create New Account"));
     }
 
     @Override
@@ -161,7 +158,7 @@ public class Regular extends Employee implements Requester{
         jobDetails.add(beneficiaries);
         jobDetails.add(accountNumber);
         jobDetails.add(currency);
-        Launcher.jobs.add(new Job(jobDetails, "Create New Account"));
+        BankSystem.jobs.add(new Job(jobDetails, "Create New Account"));
     }
 
     @Override
@@ -169,14 +166,14 @@ public class Regular extends Employee implements Requester{
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(type);
         jobDetails.add(accountNumber);
-        Launcher.jobs.add(new Job(jobDetails, "Close Account"));
+        BankSystem.jobs.add(new Job(jobDetails, "Close Account"));
     }
 
     @Override
     public void requestAddCard(String accountNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(accountNumber);
-        Launcher.jobs.add(new Job(jobDetails, "Add Card"));
+        BankSystem.jobs.add(new Job(jobDetails, "Add Card"));
     }
 
     @Override
@@ -184,6 +181,6 @@ public class Regular extends Employee implements Requester{
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(accountNumber);
         jobDetails.add(cardNumber);
-        Launcher.jobs.add(new Job(jobDetails, "Close Card"));
+        BankSystem.jobs.add(new Job(jobDetails, "Close Card"));
     }
 }

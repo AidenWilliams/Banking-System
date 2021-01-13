@@ -1,8 +1,6 @@
 package Accounts;
 
-import Old.Accounts.Account;
 import Users.Customer;
-import Old.Users.User;
 import Workflow.Status;
 
 // In banking cards are their own account

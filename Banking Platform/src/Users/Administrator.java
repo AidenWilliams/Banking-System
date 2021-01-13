@@ -1,5 +1,5 @@
 package Users;
-
+import Workflow.BankSystem;
 import java.util.ArrayList;
 
 public class Administrator extends Employee implements Approver{
@@ -17,27 +17,30 @@ public class Administrator extends Employee implements Approver{
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    Administrator(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
+    public Administrator(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
     @Override
-    public void approveJobRequest(int JobID) {
-
+    public void approveJobRequest(int JobID, Employee employee) {
+        BankSystem.jobs.get(JobID).markApproved();
+        BankSystem.jobs.get(JobID).setAssignee(employee);
     }
 
     @Override
     public void removeJobRequest(int JobID) {
-
-    }
-
-    @Override
-    void doJob(int JobID) {
-
+        BankSystem.jobs.get(JobID).markRejected();
     }
 
     @Override
     String viewJobs() {
-        return null;
+        StringBuilder output = new StringBuilder();
+        output.append("Jobs\n");
+        output.append("ID\tDetails\tStatus\tAssignee\n");
+        for(int i = 0; i < BankSystem.jobs.size(); i++)
+            output.append(i).append("\t").append(BankSystem.jobs.get(i).getDetails())
+                    .append("\t").append(BankSystem.jobs.get(i).getStatus())
+                    .append("\t").append(BankSystem.jobs.get(i).getAssignee()).append("\n");
+        return output.toString();
     }
 }

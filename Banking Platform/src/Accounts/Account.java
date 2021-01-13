@@ -184,8 +184,8 @@ public abstract class Account {
         this.cards.add(card);
     }
 
-    public void removeCard(Card card) {
-        this.cards.removeIf(c -> c == card);
+    public void removeCard(String number) {
+        this.cards.removeIf(c -> c.getNumber().equals(number));
     }
 
     public void addTransaction(Transaction transaction){

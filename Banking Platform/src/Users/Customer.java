@@ -20,11 +20,12 @@ public abstract class Customer extends User {
      * @param phoneNumber Phone of the user.
      */
     //Account
-    private ArrayList<Account> accounts;
+    protected ArrayList<Account> accounts;
+
     Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
-             String phoneNumber, ArrayList<Account> accounts) {
+             String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
-        this.accounts = (accounts);
+        accounts = new ArrayList<>();
     }
 
     abstract String viewBalance();
@@ -36,6 +37,7 @@ public abstract class Customer extends User {
     abstract String viewInstruction(Instruction instruction);
     abstract String viewInstructions();
     abstract void requestTransferToAccount(String detail, String accountFrom, String accountTo, double amount);
+
     public Account getAccount(String accountNumber){
         for (Account account : accounts)
             if(account.getNumber().equals(accountNumber))
@@ -43,9 +45,9 @@ public abstract class Customer extends User {
         return null;
     }
     public void setAccount(Account account) {
-        for (Account a : accounts)
-            if(account.getNumber().equals(a.getNumber()))
-                a = account;
+        for(int i = 0; i < accounts.size(); i++)
+            if(accounts.get(i).getNumber().equals(account.getNumber()))
+                accounts.set(i, account);
     }
     public void addAccount(Account account) {
         accounts.add(account);

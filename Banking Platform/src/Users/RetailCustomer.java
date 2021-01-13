@@ -2,20 +2,18 @@ package Users;
 
 import Accounts.Account;
 import Accounts.Transaction;
-import Old.Workflow.JobApproval;
-import Old.Workflow.JobRequest;
+import Workflow.Job;
 import Workflow.Limits;
 import Workflow.Instruction;
-import Workflow.Launcher;
-
+import Workflow.BankSystem;
 import java.util.ArrayList;
 
 public class RetailCustomer extends Customer{
-    RetailCustomer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
-                   String phoneNumber, ArrayList<Account> accounts) {
-        super(id, name, surname, addresses, DOB, email, phoneNumber, accounts);
+    public RetailCustomer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
+                   String phoneNumber) {
+        super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
-    //maybe do printer class for these
+
     @Override
     String viewBalance() {
         StringBuilder output = new StringBuilder();
@@ -82,12 +80,12 @@ public class RetailCustomer extends Customer{
 
     @Override
     void addInstruction(String detail) {
-        Launcher.instructions.add(new Instruction(detail, this));
+        BankSystem.instructions.add(new Instruction(detail, this));
     }
 
     @Override
     void removeInstruction(int id) {
-        Launcher.instructions.remove(id);
+        BankSystem.instructions.remove(id);
     }
 
     @Override
@@ -103,7 +101,7 @@ public class RetailCustomer extends Customer{
     String viewInstructions() {
         StringBuilder output = new StringBuilder();
         int counter = 0;
-        for(Instruction instruction: Launcher.instructions){
+        for(Instruction instruction: BankSystem.instructions){
             output.append("Instruction List\n");
             output.append("ID\tDetail\tStatus\tAssigned\n");
             output.append(counter++).append("\t").append(viewInstruction(instruction)).append("\n");
@@ -126,9 +124,18 @@ public class RetailCustomer extends Customer{
         jobDetails.add(accountTo);
         jobDetails.add(amount);
         if(amount <= Limits.MAX_EASY_TRANSFER){
-            //Add it as an approved job
+            Account f = BankSystem.getAccount(accountFrom);
+            Account t = BankSystem.getAccount(accountFrom);
+
+            f.setBalanceOnHold(f.getBalanceOnHold() - amount);
+            t.setAvailableBalance(t.getAvailableBalance() + amount);
+            f.addTransaction(new Transaction(detail, accountFrom, accountTo, amount));
+            t.addTransaction(new Transaction(detail, accountFrom, accountTo, amount));
+
+            BankSystem.AmendAccount(accountFrom, f);
+            BankSystem.AmendAccount(accountTo, t);
         }else{
-            //Add it as a normal job
+            BankSystem.jobs.add(new Job(jobDetails, "Transfer"));
         }
     }
 }
