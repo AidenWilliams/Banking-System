@@ -3,7 +3,7 @@ package Workflow;
 public class Status {
     private int status;
 
-    Status(){
+    public Status(){
         status = 0;
     }
 

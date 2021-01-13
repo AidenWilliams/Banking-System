@@ -40,4 +40,12 @@ public class Launcher {
             }
         }
     }
+
+    public static int OwnerOfAccount(String number){
+        for(int i = 0; i < customers.size(); i++){
+            if(customers.get(i).getAccount(number) != null)
+                return i;
+        }
+        return -1;
+    }
 }

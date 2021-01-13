@@ -1,31 +1,47 @@
 package Accounts;
 
 import Old.Accounts.Account;
+import Users.Customer;
 import Old.Users.User;
+import Workflow.Status;
 
 // In banking cards are their own account
-public abstract class Card extends Account {
+public abstract class Card {
     //TODO: Add javadoc
-    final private User user;
+    final private Customer user;
     final private String validTo;
+    final private String number;
     final private String CVV;
     final private boolean virtual;
     private String PIN;
-    private short status;
+    private Status status;
     private double limit;
 
-    public Card(User user, String validTo, String cvv,
-                String pin, boolean virtual, short status, double limit,
-                Account account){
-        super(account);
+    public Card(Customer user, String validTo, String cvv, String accountNumber,
+                String pin, boolean virtual, double limit){
         this.user = user;
-        this.setNumber(account.getNumber() + account.getCards().size());
+        //get old style of creating this
+        this.number = accountNumber;
         this.validTo = validTo;
         this.CVV = cvv;
         this.virtual = virtual;
         this.PIN = pin;
-        this.status = status;
+        this.status = new Status();
+        this.status.markApproved();
         this.limit = limit;
+    }
+
+    public Card(Card card){
+        this.user = card.user;
+        //get old style of creating this
+        this.number = card.number;
+        this.validTo = card.validTo;
+        this.CVV = card.CVV;
+        this.virtual = card.virtual;
+        this.PIN = card.PIN;
+        this.status = new Status();
+        this.status.markApproved();
+        this.limit = card.limit;
     }
 
     public String getName() {
@@ -56,11 +72,15 @@ public abstract class Card extends Account {
         this.PIN = PIN;
     }
 
-    public short getStatus() {
+    public String getNumber() {
+        return number;
+    }
+
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(short status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

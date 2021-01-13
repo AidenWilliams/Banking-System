@@ -1,10 +1,10 @@
 package Users;
 
-import Accounts.Account;
-import Accounts.Transaction;
+import Accounts.*;
 import Workflow.Job;
 import Workflow.Launcher;
 
+import javax.swing.plaf.ColorUIResource;
 import java.util.ArrayList;
 
 public class Regular extends Employee implements Requester{
@@ -32,45 +32,70 @@ public class Regular extends Employee implements Requester{
         job.markInProgress();
 
         switch (job.getDescription()) {
-            case "Create New Debit Account":
-                if (job.getDetails().size() == 4) {
+            case "Create New Account":
+                if (job.getDetails().size() == 5) {
                     Customer[] beneficiaries = filter(Customer[].class, job.getDetails()).get(0);
                     String accountNumber = filter(String.class, job.getDetails()).get(0);
                     Double availableBalance = filter(Double.class, job.getDetails()).get(0);
                     String currency = filter(String.class, job.getDetails()).get(1);
-                    //createNewAccount(beneficiaries, accountNumber, availableBalance, currency);
-                } else if (job.getDetails().size() == 3) {
-                    Customer[] beneficiaries = filter(Customer[].class, job.getDetails()).get(0);
-                    String accountNumber = filter(String.class, job.getDetails()).get(0);
-                    String currency = filter(String.class, job.getDetails()).get(1);
-                    //createNewAccount(beneficiaries, accountNumber, currency);
-                } else {
+                    if(filter(CurrentAccount.class, job.getDetails()).size() == 0){
+                        if(filter(SavingsAccount.class, job.getDetails()).size() == 1){
+                            SavingsAccount ac = new SavingsAccount(beneficiaries, accountNumber,
+                                                            availableBalance, currency);
+                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                        }
+                    }
+                    if(filter(SavingsAccount.class, job.getDetails()).size() == 0){
+                        if(filter(CurrentAccount.class, job.getDetails()).size() == 1){
+                            CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
+                                    availableBalance, currency);
+                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                        }
+                    }
                     //error
-                }
-                break;
-            case "Create New Credit Account":
-                if (job.getDetails().size() == 4) {
-                    Customer[] beneficiaries = filter(Customer[].class, job.getDetails()).get(0);
-                    String accountNumber = filter(String.class, job.getDetails()).get(0);
-                    Double availableBalance = filter(Double.class, job.getDetails()).get(0);
-                    String currency = filter(String.class, job.getDetails()).get(1);
-                    //createNewAccount(beneficiaries, accountNumber, availableBalance, currency);
-                } else if (job.getDetails().size() == 3) {
+                } else if (job.getDetails().size() == 4) {
                     Customer[] beneficiaries = filter(Customer[].class, job.getDetails()).get(0);
                     String accountNumber = filter(String.class, job.getDetails()).get(0);
                     String currency = filter(String.class, job.getDetails()).get(1);
-                    //createNewAccount(beneficiaries, accountNumber, currency);
+
+                    if(filter(CurrentAccount.class, job.getDetails()).size() == 0){
+                        if(filter(SavingsAccount.class, job.getDetails()).size() == 1){
+                            SavingsAccount ac = new SavingsAccount(beneficiaries, accountNumber,
+                                    0, currency);
+                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                        }
+                    }
+                    if(filter(SavingsAccount.class, job.getDetails()).size() == 0){
+                        if(filter(CurrentAccount.class, job.getDetails()).size() == 1){
+                            CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
+                                    0, currency);
+                            Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).addAccount(ac);
+                        }
+                    }
+                    //error
                 } else {
                     //error
                 }
                 break;
             case "Close Account": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
+                Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).getAccount(accountNumber).setStatus(false);
                 break;
             }
             case "Add Card": {//fix
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
-                //addCard(accountNumber);
+                if(filter(DebitCard.class, job.getDetails()).size() == 0) {
+                    if (filter(CreditCard.class, job.getDetails()).size() == 1) {
+                        CreditCard cc = new CreditCard(Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)),
+                                "12/12/2999", // so safe wow
+                                accountNumber.substring(accountNumber.length() - 3),
+                                accountNumber,
+                                "",
+                                false,
+                                -1.0);
+                        Launcher.customers.get(Launcher.OwnerOfAccount(accountNumber)).getAccount(accountNumber).addCard(cc);
+                    }
+                }
                 break;
             }
             case "Remove Card": {
@@ -119,46 +144,30 @@ public class Regular extends Employee implements Requester{
     }
 
     @Override
-    public void requestCreateNewDebitAccount(Customer[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+    public void requestCreateNewAccount(Account type, Customer[] beneficiaries, String accountNumber, double availableBalance, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(type);
         jobDetails.add(beneficiaries);
         jobDetails.add(accountNumber);
         jobDetails.add(availableBalance);
         jobDetails.add(currency);
-        Launcher.jobs.add(new Job(jobDetails, "Create New Current Account"));
+        Launcher.jobs.add(new Job(jobDetails, "Create New Account"));
     }
 
     @Override
-    public void requestCreateNewDebitAccount(Customer[] beneficiaries, String accountNumber, String currency) {
+    public void requestCreateNewAccount(Account type, Customer[] beneficiaries, String accountNumber, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(type);
         jobDetails.add(beneficiaries);
         jobDetails.add(accountNumber);
         jobDetails.add(currency);
-        Launcher.jobs.add(new Job(jobDetails, "Create New Current Account"));
+        Launcher.jobs.add(new Job(jobDetails, "Create New Account"));
     }
 
     @Override
-    public void requestCreateNewCreditAccount(Customer[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+    public void requestCloseAccount(Card type, String accountNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
-        jobDetails.add(beneficiaries);
-        jobDetails.add(accountNumber);
-        jobDetails.add(availableBalance);
-        jobDetails.add(currency);
-        Launcher.jobs.add(new Job(jobDetails, "Create New Savings Account"));
-    }
-
-    @Override
-    public void requestCreateNewCreditAccount(Customer[] beneficiaries, String accountNumber, String currency) {
-        ArrayList<Object> jobDetails = new ArrayList<>();
-        jobDetails.add(beneficiaries);
-        jobDetails.add(accountNumber);
-        jobDetails.add(currency);
-        Launcher.jobs.add(new Job(jobDetails, "Create New Savings Account"));
-    }
-
-    @Override
-    public void requestCloseAccount(String accountNumber) {
-        ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(type);
         jobDetails.add(accountNumber);
         Launcher.jobs.add(new Job(jobDetails, "Close Account"));
     }

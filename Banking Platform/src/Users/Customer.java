@@ -47,4 +47,7 @@ public abstract class Customer extends User {
             if(account.getNumber().equals(a.getNumber()))
                 a = account;
     }
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
 }
