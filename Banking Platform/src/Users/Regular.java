@@ -24,7 +24,7 @@ public class Regular extends Employee implements Requester{
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
-    void doJob(int JobID) {
+    public void doJob(int JobID) {
         Job job = BankSystem.jobs.get(JobID);
         job.markInProgress();
 
@@ -35,15 +35,15 @@ public class Regular extends Employee implements Requester{
                     String accountNumber = filter(String.class, job.getDetails()).get(0);
                     Double availableBalance = filter(Double.class, job.getDetails()).get(0);
                     String currency = filter(String.class, job.getDetails()).get(1);
-                    if(filter(CurrentAccount.class, job.getDetails()).size() == 0){
-                        if(filter(SavingsAccount.class, job.getDetails()).size() == 1){
+                    if(!isClassPresent(CurrentAccount.class, job.getDetails())){
+                        if(isClassPresent(SavingsAccount.class, job.getDetails())){
                             SavingsAccount ac = new SavingsAccount(beneficiaries, accountNumber,
                                                             availableBalance, currency);
                             BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
                         }
                     }
-                    if(filter(SavingsAccount.class, job.getDetails()).size() == 0){
-                        if(filter(CurrentAccount.class, job.getDetails()).size() == 1){
+                    if(!isClassPresent(SavingsAccount.class, job.getDetails())){
+                        if(isClassPresent(CurrentAccount.class, job.getDetails())){
                             CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
                                     availableBalance, currency);
                             BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
@@ -55,15 +55,15 @@ public class Regular extends Employee implements Requester{
                     String accountNumber = filter(String.class, job.getDetails()).get(0);
                     String currency = filter(String.class, job.getDetails()).get(1);
 
-                    if(filter(CurrentAccount.class, job.getDetails()).size() == 0){
-                        if(filter(SavingsAccount.class, job.getDetails()).size() == 1){
+                    if(!isClassPresent(CurrentAccount.class, job.getDetails())){
+                        if(isClassPresent(SavingsAccount.class, job.getDetails())){
                             SavingsAccount ac = new SavingsAccount(beneficiaries, accountNumber,
                                     0, currency);
                             BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
                         }
                     }
-                    if(filter(SavingsAccount.class, job.getDetails()).size() == 0){
-                        if(filter(CurrentAccount.class, job.getDetails()).size() == 1){
+                    if(!isClassPresent(SavingsAccount.class, job.getDetails())){
+                        if(isClassPresent(CurrentAccount.class, job.getDetails())){
                             CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
                                     0, currency);
                             BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).addAccount(ac);
@@ -81,8 +81,8 @@ public class Regular extends Employee implements Requester{
             }
             case "Add Card": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
-                if(filter(DebitCard.class, job.getDetails()).size() == 0) {
-                    if (filter(CreditCard.class, job.getDetails()).size() == 1) {
+                if(!isClassPresent(DebitCard.class, job.getDetails())) {
+                    if (isClassPresent(CreditCard.class, job.getDetails())) {
                         CreditCard cc = new CreditCard(BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)),
                                 "12/12/2999", // so safe wow
                                 accountNumber.substring(accountNumber.length() - 3),
@@ -107,7 +107,7 @@ public class Regular extends Employee implements Requester{
     }
 
     @Override
-    String viewJobs() {
+    public String viewJobs() {
         StringBuilder output = new StringBuilder();
         output.append("Jobs\n");
         output.append("ID\tDetails\tStatus\n");
@@ -118,7 +118,7 @@ public class Regular extends Employee implements Requester{
         return output.toString();
     }
 
-    String viewInstructions() {
+    public String viewInstructions() {
         StringBuilder output = new StringBuilder();
         output.append("Jobs\n");
         output.append("ID\tDetails\n");
@@ -141,7 +141,7 @@ public class Regular extends Employee implements Requester{
     }
 
     @Override
-    public void requestCreateNewAccount(Account type, Customer[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+    public <T> void requestCreateNewAccount(Class<T> type, Customer[] beneficiaries, String accountNumber, double availableBalance, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(type);
         jobDetails.add(beneficiaries);
@@ -152,7 +152,7 @@ public class Regular extends Employee implements Requester{
     }
 
     @Override
-    public void requestCreateNewAccount(Account type, Customer[] beneficiaries, String accountNumber, String currency) {
+    public <T> void requestCreateNewAccount(Class<T> type, Customer[] beneficiaries, String accountNumber, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(type);
         jobDetails.add(beneficiaries);
@@ -162,16 +162,16 @@ public class Regular extends Employee implements Requester{
     }
 
     @Override
-    public void requestCloseAccount(Card type, String accountNumber) {
+    public void requestCloseAccount(String accountNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
-        jobDetails.add(type);
         jobDetails.add(accountNumber);
         BankSystem.jobs.add(new Job(jobDetails, "Close Account"));
     }
 
     @Override
-    public void requestAddCard(String accountNumber) {
+    public <T> void requestAddCard(Class<T> type, String accountNumber) {
         ArrayList<Object> jobDetails = new ArrayList<>();
+        jobDetails.add(type);
         jobDetails.add(accountNumber);
         BankSystem.jobs.add(new Job(jobDetails, "Add Card"));
     }

@@ -30,4 +30,13 @@ public abstract class Employee extends User {
                 .map(clazz::cast)
                 .collect(Collectors.toList());
     }
+
+    static <T> Boolean isClassPresent(Class<T> clazz, List<?> items) {
+        for (Object item: items) {
+            if(item.equals(clazz)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -17,11 +17,19 @@ public class Main {
         RetailCustomer customer = new RetailCustomer("3","Aiden", "Williams", arrayList,
                 "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421");
 
+        RetailCustomer customer2 = new RetailCustomer("4","Aiden", "Williams", arrayList,
+                "20/09/2020", "aiden.williams.19@um.edu.mt", "77085421");
 
-        regular.requestCreateNewAccount(new CurrentAccount(), new Customer[]{customer}, "12345", "EUR");
-        /*
-            public RetailCustomer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
-                   String phoneNumber, ArrayList<Account> accounts) {
-        */
+        BankSystem.customers.add(customer);
+        BankSystem.customers.add(customer2);
+        //Do request create customer
+        regular.requestCreateNewAccount(SavingsAccount.class, new Customer[]{customer}, "12345",1000, "EUR");
+        regular.requestCreateNewAccount(SavingsAccount.class, new Customer[]{customer2}, "12345",1000, "EUR");
+        administrator.approveJobRequest(0, regular);
+        administrator.approveJobRequest(1, regular);
+        System.out.println(regular.viewJobs());
+        regular.doJob(0);
+        System.out.println(regular.viewJobs());
+        //regular.doJob(0);
     }
 }
