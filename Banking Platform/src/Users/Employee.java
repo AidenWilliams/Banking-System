@@ -1,6 +1,8 @@
 package Users;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Employee extends User {
     /**
@@ -20,7 +22,13 @@ public abstract class Employee extends User {
     Employee(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
-
+    // Reasoning is that all employees can view their joblit and do the job hey want to
     abstract void doJob(int JobID);
     abstract String viewJobs();
+    static <T> List<T> filter(Class<T> clazz, List<?> items) {
+        return items.stream()
+                .filter(clazz::isInstance)
+                .map(clazz::cast)
+                .collect(Collectors.toList());
+    }
 }
