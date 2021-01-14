@@ -1,5 +1,7 @@
 package Users;
 
+import Workflow.Assigner;
+
 public interface Approver {
     //TODO: Add javadoc
 

@@ -1,8 +1,9 @@
 package Users;
+import Workflow.Assigner;
 import Workflow.BankSystem;
 import java.util.ArrayList;
 
-public class Administrator extends Employee implements Approver{
+public class Administrator extends Employee implements Approver, Assigner{
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -22,9 +23,19 @@ public class Administrator extends Employee implements Approver{
     }
 
     @Override
+    public void assignJob(int JobID, Employee employee) {
+        BankSystem.jobs.get(JobID).setAssignee(employee);
+    }
+
+    @Override
+    public void assignInstruction(int JobID, Employee employee) {
+        BankSystem.instructions.get(JobID).setAssignee(employee);
+    }
+
+    @Override
     public void approveJobRequest(int JobID, Employee employee) {
         BankSystem.jobs.get(JobID).markApproved();
-        BankSystem.jobs.get(JobID).setAssignee(employee);
+        assignJob(JobID, employee);
     }
 
     @Override
