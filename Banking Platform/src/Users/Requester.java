@@ -4,7 +4,7 @@ import Accounts.Account;
 import Accounts.Card;
 
 public interface Requester {
-    //Should be Debit and Credit Accounts
+    void requestCreateNewCustomer(Customer customer);
     <T> void requestCreateNewAccount(Class<T> type, Customer[] beneficiaries, String accountNumber, double availableBalance, String currency);
     <T> void requestCreateNewAccount(Class<T> type, Customer[] beneficiaries, String accountNumber, String currency);
     void requestCloseAccount(String accountNumber);

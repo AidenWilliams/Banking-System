@@ -46,4 +46,8 @@ public class Status {
     public boolean isInProgress(){
         return status == 4;
     }
+
+    public boolean is(Status other){
+        return status == other.status;
+    }
 }

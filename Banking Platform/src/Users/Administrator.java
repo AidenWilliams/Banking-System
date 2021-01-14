@@ -49,7 +49,7 @@ public class Administrator extends Employee implements Approver, Assigner{
         output.append("Jobs\n");
         output.append("ID\tDetails\tStatus\tAssignee\n");
         for(int i = 0; i < BankSystem.jobs.size(); i++)
-            output.append(i).append("\t").append(BankSystem.jobs.get(i).getDetails())
+            output.append(i).append("\t").append(BankSystem.jobs.get(i).getDescription())
                     .append("\t").append(BankSystem.jobs.get(i).getStatus())
                     .append("\t").append(BankSystem.jobs.get(i).getAssignee()).append("\n");
         return output.toString();

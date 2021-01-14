@@ -41,7 +41,7 @@ public class BankSystem {
     }
 
     public static void AssignAccountToCustomer(Account account, Customer customer){
-
+        customers.get(customers.indexOf(customer)).addAccount(account);
     }
 
     public static int OwnerOfAccount(String number){
