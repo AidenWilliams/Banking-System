@@ -1,5 +1,4 @@
 package Accounts;
-import Users.Customer;
 import Users.User;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
  * @version 1.1
  */
 public abstract class Account {
-    private Customer[] beneficiaries;
+    private String[] beneficiaries;
     private final String IBAN;
     private String number;
     private String currency;
@@ -47,7 +46,7 @@ public abstract class Account {
      * @param currency The currency that the account is operating in
      * @see User
      */
-    public Account(Customer[] beneficiaries, String number,
+    public Account(String[] beneficiaries, String number,
                    double availableBalance, String currency) {
         this.beneficiaries = beneficiaries;
         this.IBAN = "MT38" + getBIC() + number;
@@ -74,14 +73,14 @@ public abstract class Account {
     /**
      * @return The beneficiary of the account
      */
-    public Customer[] getBeneficiaries() {
+    public String[] getBeneficiaries() {
         return beneficiaries;
     }
 
     /**
      * @param beneficiaries Sets the beneficiary for the account
      */
-    public void setBeneficiaries(Customer[] beneficiaries) {
+    public void setBeneficiaries(String[] beneficiaries) {
         this.beneficiaries = beneficiaries;
     }
 

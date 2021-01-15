@@ -1,9 +1,9 @@
 package Users;
-import Workflow.Assigner;
-import Workflow.BankSystem;
+import Workflow.*;
+
 import java.util.ArrayList;
 
-public class Administrator extends Employee implements Approver, Assigner{
+public class Administrator extends Employee implements Approver, Assigner {
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -28,30 +28,39 @@ public class Administrator extends Employee implements Approver, Assigner{
     }
 
     @Override
-    public void assignInstruction(int JobID, Employee employee) {
-        BankSystem.instructions.get(JobID).setAssignee(employee);
-    }
-
-    @Override
     public void approveJobRequest(int JobID, Employee employee) {
         BankSystem.jobs.get(JobID).markApproved();
         assignJob(JobID, employee);
     }
 
     @Override
-    public void removeJobRequest(int JobID) {
-        BankSystem.jobs.get(JobID).markRejected();
+    public void instructionToJob(int InstrctionID, Job job, Employee employee){
+        BankSystem.instructions.get(InstrctionID).markApproved();
+        BankSystem.instructions.get(InstrctionID).setAssignee(employee);
+        ArrayList<Object> list = job.getDetails();
+        list.add(BankSystem.instructions.get(InstrctionID));
+        job.setDetails(list);
+        BankSystem.jobs.add(job);
+        assignJob(BankSystem.jobs.size() - 1, employee);
     }
 
     @Override
-    String viewJobs() {
+    public void declineInstruction(int InstrctionID) {
+        BankSystem.instructions.get(InstrctionID).markRejected();
+    }
+
+    @Override
+    public String viewInstructions() {
         StringBuilder output = new StringBuilder();
         output.append("Jobs\n");
-        output.append("ID\tDetails\tStatus\tAssignee\n");
-        for(int i = 0; i < BankSystem.jobs.size(); i++)
-            output.append(i).append("\t").append(BankSystem.jobs.get(i).getDescription())
-                    .append("\t").append(BankSystem.jobs.get(i).getStatus())
-                    .append("\t").append(BankSystem.jobs.get(i).getAssignee()).append("\n");
+        output.append("ID\tDetails\n");
+        for (int i = 0; i < BankSystem.instructions.size(); i++)
+            output.append(i).append("\t").append(BankSystem.instructions.get(i).getDetail()).append("\n");
         return output.toString();
+    }
+
+    @Override
+    public void removeJobRequest(int JobID) {
+        BankSystem.jobs.get(JobID).markRejected();
     }
 }

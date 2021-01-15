@@ -1,7 +1,5 @@
 package Accounts;
 
-import Users.Customer;
-
 public class SavingsAccount extends Account{
     /**
      * <p>
@@ -16,7 +14,7 @@ public class SavingsAccount extends Account{
      * @param currency         The currency that the account is operating in
      * @see User
      */
-    public SavingsAccount(Customer[] beneficiaries, String number, double availableBalance, String currency) {
+    public SavingsAccount(String[] beneficiaries, String number, double availableBalance, String currency) {
         super(beneficiaries, number, availableBalance, currency);
     }
 

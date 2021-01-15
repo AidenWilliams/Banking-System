@@ -24,31 +24,28 @@ public class BankSystem {
     }
 
     public static Account getAccount(String number){
-        for(Customer customer: customers){
-            if(customer.getAccount(number).getNumber().equals(number)){
+        for(Customer customer: customers)
+            if(customer.getAccount(number).getNumber().equals(number))
                 return customer.getAccount(number);
-            }
-        }
         return null;
     }
 
     public static void AmendAccount(String number, Account amendedAccount){
-        for(Customer customer: customers) {
-            if (customer.getAccount(number).getNumber().equals(number)) {
+        for(Customer customer: customers)
+            if (customer.getAccount(number).getNumber().equals(number))
                 customer.setAccount(amendedAccount);
-            }
-        }
     }
 
-    public static void AssignAccountToCustomer(Account account, Customer customer){
+    public static void AssignAccountToCustomer(Account account, String customer){
         customers.get(customers.indexOf(customer)).addAccount(account);
     }
 
-    public static int OwnerOfAccount(String number){
-        for(int i = 0; i < customers.size(); i++){
+    public static int[] OwnerOfAccount(String number){
+        int[] ret = new int[] {-1, -1};
+        int cnt = 0;
+        for(int i = 0; i < customers.size(); i++)
             if(customers.get(i).getAccount(number) != null)
-                return i;
-        }
-        return -1;
+                ret[cnt++] =i ;
+        return ret;
     }
 }

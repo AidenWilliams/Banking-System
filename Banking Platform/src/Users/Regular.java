@@ -5,7 +5,7 @@ import Workflow.Job;
 import Workflow.BankSystem;
 import java.util.ArrayList;
 
-public class Regular extends Employee implements Requester{
+public class Regular extends ActionTaker implements Requester{
     /**
      * <p>
      * Constructor method to create a new User, all variables declared above must be initialised in order to create
@@ -25,14 +25,14 @@ public class Regular extends Employee implements Requester{
     }
 
     public void doJob(int JobID) {
-
+        if(!BankSystem.status.isInProgress()) return;
         //get job id proper
         int properID = 0;
         if(JobID != 0)
             for(Job job: BankSystem.jobs)
                 if(job.getAssignee() == this && job.isApproved())
                     if(++properID == JobID) break;
-
+        //mark instruction when job has one
 
         Job job = BankSystem.jobs.get(properID);
         job.markInProgress();
@@ -46,7 +46,7 @@ public class Regular extends Employee implements Requester{
             }
             case "Create New Account":
                 if (job.getDetails().size() == 5) {
-                    Customer[] beneficiaries = filter(Customer[].class, job.getDetails()).get(0);
+                    String[] beneficiaries = filter(String[].class, job.getDetails()).get(0);
                     String accountNumber = filter(String.class, job.getDetails()).get(0);
                     Double availableBalance = filter(Double.class, job.getDetails()).get(0);
                     String currency = filter(String.class, job.getDetails()).get(1);
@@ -54,7 +54,7 @@ public class Regular extends Employee implements Requester{
                         if(isClassPresent(SavingsAccount.class, job.getDetails())){
                             SavingsAccount sc = new SavingsAccount(beneficiaries, accountNumber,
                                                             availableBalance, currency);
-                            for(Customer customer: beneficiaries){
+                            for(String customer: beneficiaries){
                                 BankSystem.AssignAccountToCustomer(sc, customer);
                             }
                         }
@@ -63,14 +63,14 @@ public class Regular extends Employee implements Requester{
                         if(isClassPresent(CurrentAccount.class, job.getDetails())){
                             CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
                                     availableBalance, currency);
-                            for(Customer customer: beneficiaries){
+                            for(String customer: beneficiaries){
                                 BankSystem.AssignAccountToCustomer(ac, customer);
                             }
                         }
                     }
                     //error
                 } else if (job.getDetails().size() == 4) {
-                    Customer[] beneficiaries = filter(Customer[].class, job.getDetails()).get(0);
+                    String[] beneficiaries = filter(String[].class, job.getDetails()).get(0);
                     String accountNumber = filter(String.class, job.getDetails()).get(0);
                     String currency = filter(String.class, job.getDetails()).get(1);
 
@@ -78,7 +78,7 @@ public class Regular extends Employee implements Requester{
                         if(isClassPresent(SavingsAccount.class, job.getDetails())){
                             SavingsAccount sc = new SavingsAccount(beneficiaries, accountNumber,
                                     0, currency);
-                            for(Customer customer: beneficiaries){
+                            for(String customer: beneficiaries){
                                 BankSystem.AssignAccountToCustomer(sc, customer);
                             }
                         }
@@ -87,7 +87,7 @@ public class Regular extends Employee implements Requester{
                         if(isClassPresent(CurrentAccount.class, job.getDetails())){
                             CurrentAccount ac = new CurrentAccount(beneficiaries, accountNumber,
                                     0, currency);
-                            for(Customer customer: beneficiaries){
+                            for(String customer: beneficiaries){
                                 BankSystem.AssignAccountToCustomer(ac, customer);
                             }
                         }
@@ -99,21 +99,23 @@ public class Regular extends Employee implements Requester{
                 break;
             case "Close Account": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
-                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).getAccount(accountNumber).setStatus(false);
+                for(int i: BankSystem.OwnerOfAccount(accountNumber))
+                    BankSystem.customers.get(i).getAccount(accountNumber).setStatus(false);
                 break;
             }
             case "Add Card": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 if(!isClassPresent(DebitCard.class, job.getDetails())) {
                     if (isClassPresent(CreditCard.class, job.getDetails())) {
-                        CreditCard cc = new CreditCard(BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)),
+                        CreditCard cc = new CreditCard(BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)[0]),
                                 "12/12/2999", // so safe wow
                                 accountNumber.substring(accountNumber.length() - 3),
                                 accountNumber,
                                 "",
                                 false,
                                 -1.0);
-                        BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).getAccount(accountNumber).addCard(cc);
+                        for(int i: BankSystem.OwnerOfAccount(accountNumber))
+                            BankSystem.customers.get(i).getAccount(accountNumber).addCard(cc);
                     }
                 }
                 break;
@@ -122,35 +124,13 @@ public class Regular extends Employee implements Requester{
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 String cardNumber = filter(String.class, job.getDetails()).get(1);
 
-                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)).getAccount(accountNumber).removeCard(cardNumber);
+                for(int i: BankSystem.OwnerOfAccount(accountNumber))
+                    BankSystem.customers.get(i).getAccount(accountNumber).removeCard(cardNumber);
                 break;
             }
         }
         job.markComplete();
     }
-
-    @Override
-    public String viewJobs() {
-        StringBuilder output = new StringBuilder();
-        output.append("Jobs\n");
-        output.append("ID\tDetails\tStatus\n");
-        for(int i = 0; i < BankSystem.jobs.size(); i++)
-            if(BankSystem.jobs.get(i).getAssignee() == this && BankSystem.jobs.get(i).isApproved())
-                output.append(i).append("\t").append(BankSystem.jobs.get(i).getDescription())
-                                .append("\t").append(BankSystem.jobs.get(i).getStatus()).append("\n");
-        return output.toString();
-    }
-
-    public String viewInstructions() {
-        StringBuilder output = new StringBuilder();
-        output.append("Jobs\n");
-        output.append("ID\tDetails\n");
-        for(int i = 0; i < BankSystem.instructions.size(); i++)
-            if(BankSystem.instructions.get(i).getAssignee() == this && BankSystem.jobs.get(i).isApproved())
-                output.append(i).append("\t").append(BankSystem.jobs.get(i).getDescription()).append("\n");
-        return output.toString();
-    }
-
     public void doTransaction(String detail, String accountFrom, String accountTo, double amount){
         Account f = BankSystem.getAccount(accountFrom);
         Account t = BankSystem.getAccount(accountFrom);

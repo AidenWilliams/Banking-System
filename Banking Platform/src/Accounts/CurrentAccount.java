@@ -1,6 +1,5 @@
 package Accounts;
 
-import Users.Customer;
 import java.util.ArrayList;
 
 public class CurrentAccount extends Account{
@@ -18,7 +17,7 @@ public class CurrentAccount extends Account{
      * @param availableBalance The available balance
      * @param currency         The currency that the account is operating in
      */
-    public CurrentAccount(Customer[] beneficiaries, String number, double availableBalance, String currency) {
+    public CurrentAccount(String[] beneficiaries, String number, double availableBalance, String currency) {
         super(beneficiaries, number, availableBalance, currency);
     }
 
