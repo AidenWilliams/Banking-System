@@ -1,25 +1,11 @@
 package Users;
 import Accounts.Account;
+import Exceptions.AccountNotFound;
 import Workflow.Instruction;
 
 import java.util.ArrayList;
 
 public abstract class Customer extends User {
-    /**
-     * <p>
-     * Constructor method to create a new User, all variables declared above must be initialised in order to create
-     * a new User.
-     * </p>
-     *
-     * @param id          Id of the User. Could be id card or passport number
-     * @param name        Name of the User.
-     * @param surname     Surname of the User.
-     * @param addresses   Array of the user addresses, Must have at least 1.
-     * @param DOB         Date of Birth of the user.
-     * @param email       Email of the user.
-     * @param phoneNumber Phone of the user.
-     */
-    //Account
     protected ArrayList<Account> accounts;
 
     Customer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
@@ -38,11 +24,11 @@ public abstract class Customer extends User {
     abstract String viewInstructions();
     abstract void requestTransferToAccount(String detail, String accountFrom, String accountTo, double amount);
 
-    public Account getAccount(String accountNumber){
+    public Account getAccount(String accountNumber) throws AccountNotFound {
         for (Account account : accounts)
             if(account.getNumber().equals(accountNumber))
                 return account;
-        return null;
+        throw new AccountNotFound("No Account with account number:" + accountNumber + " found!");
     }
     public void setAccount(Account account) {
         for(int i = 0; i < accounts.size(); i++)

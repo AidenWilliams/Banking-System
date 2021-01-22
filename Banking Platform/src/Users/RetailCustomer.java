@@ -115,21 +115,33 @@ public class RetailCustomer extends Customer{
 
     @Override
     public void requestTransferToAccount(String detail, String accountFrom, String accountTo, double amount) {
-        Account from = getAccount(accountFrom);
-        if(from == null) return; //bad
+        Account from;
+        try{
+            from = getAccount(accountFrom);
+        }catch(Exception m){
+            System.out.println(m.toString());
+            return;
+        }
 
         from.setAvailableBalance(from.getAvailableBalance() - amount);
         from.setBalanceOnHold(from.getBalanceOnHold() + amount);
 
-        ArrayList<Object> jobDetails = new ArrayList<>();
-        jobDetails.add(this);
-        jobDetails.add(detail);
-        jobDetails.add(accountFrom);
-        jobDetails.add(accountTo);
-        jobDetails.add(amount);
         if(amount <= Limits.MAX_EASY_TRANSFER){
-            Account f = BankSystem.getAccount(accountFrom);
-            Account t = BankSystem.getAccount(accountFrom);
+            Account f,t;
+            try{
+                f = BankSystem.getAccount(accountFrom);
+            }catch(Exception m){
+                System.out.println(m.toString());
+                System.out.println("From Account not found!");
+                return;
+            }
+            try{
+                t = BankSystem.getAccount(accountFrom);
+            }catch(Exception m){
+                System.out.println(m.toString());
+                System.out.println("To Account not found!");
+                return;
+            }
 
             f.setBalanceOnHold(f.getBalanceOnHold() - amount);
             t.setAvailableBalance(t.getAvailableBalance() + amount);
@@ -139,6 +151,12 @@ public class RetailCustomer extends Customer{
             BankSystem.AmendAccount(accountFrom, f);
             BankSystem.AmendAccount(accountTo, t);
         }else{
+            ArrayList<Object> jobDetails = new ArrayList<>();
+            jobDetails.add(this);
+            jobDetails.add(detail);
+            jobDetails.add(accountFrom);
+            jobDetails.add(accountTo);
+            jobDetails.add(amount);
             BankSystem.jobs.add(new Job(jobDetails, "Transfer"));
         }
     }

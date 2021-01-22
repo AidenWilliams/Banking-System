@@ -23,9 +23,9 @@ public abstract class ActionTaker extends Employee{
     ActionTaker(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email, String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
-    abstract void doJob(int JobID);
+    abstract void doJob(int JobID) throws Exception;
 
-    static <T> List<T> filter(Class<T> clazz, List<?> items) {
+    static <T> List<T> filter(Class<T> clazz, List<?> items){
         return items.stream()
                 .filter(clazz::isInstance)
                 .map(clazz::cast)

@@ -4,9 +4,9 @@ import Users.Customer;
 import Users.Employee;
 
 public class Instruction extends Status{
-    private String detail;
+    private final String detail;
     //TODO: map for this
-    private Customer from;
+    private final Customer from;
     private Employee assignee;
 
     public Instruction(String detail, Customer from) {

@@ -1,4 +1,6 @@
 package Users;
+import Exceptions.InstructionNotFound;
+import Exceptions.JobNotFound;
 import Workflow.*;
 
 import java.util.ArrayList;
@@ -23,31 +25,57 @@ public class Administrator extends Employee implements Approver, Assigner {
     }
 
     @Override
-    public void assignJob(int JobID, Employee employee) {
-        BankSystem.jobs.get(JobID).setAssignee(employee);
+    public void assignJob(int JobID, Employee employee) throws JobNotFound {
+        Job j;
+        try {
+            j = BankSystem.jobs.get(JobID);
+        }catch (Exception ignored){
+            throw new JobNotFound("Job with job id " + JobID +" was not found!");
+        }
+        j.setAssignee(employee);
     }
 
     @Override
-    public void approveJobRequest(int JobID, Employee employee) {
-        BankSystem.jobs.get(JobID).markApproved();
+    public void approveJobRequest(int JobID, Employee employee) throws JobNotFound {
+        Job j;
+        try {
+            j = BankSystem.jobs.get(JobID);
+        }catch (Exception ignored){
+            throw new JobNotFound("Job with job id " + JobID +" was not found!");
+        }
+        j.markApproved();
         assignJob(JobID, employee);
     }
 
     @Override
-    public void instructionToJob(int InstrctionID, Job job, Employee employee){
-        BankSystem.instructions.get(InstrctionID).markApproved();
-        BankSystem.instructions.get(InstrctionID).setAssignee(employee);
+    public void instructionToJob(int InstrctionID, Job job, Employee employee) throws InstructionNotFound, JobNotFound {
+        Instruction i;
+        try {
+            i =  BankSystem.instructions.get(InstrctionID);
+        }catch (Exception ignored){
+            throw new InstructionNotFound("Instruction with instruction id " + InstrctionID +" was not found!");
+        }
+        i.markApproved();
+        i.setAssignee(employee);
+
         ArrayList<Object> list = job.getDetails();
         list.add(BankSystem.instructions.get(InstrctionID));
         job.setDetails(list);
         job.markApproved();
         BankSystem.jobs.add(job);
+
         assignJob(BankSystem.jobs.size() - 1, employee);
     }
 
     @Override
-    public void declineInstruction(int InstrctionID) {
-        BankSystem.instructions.get(InstrctionID).markRejected();
+    public void declineInstruction(int InstrctionID) throws InstructionNotFound {
+        Instruction i;
+        try {
+            i =  BankSystem.instructions.get(InstrctionID);
+        }catch (Exception ignored){
+            throw new InstructionNotFound("Instruction with instruction id " + InstrctionID +" was not found!");
+        }
+        i.markRejected();
     }
 
     @Override
@@ -61,7 +89,13 @@ public class Administrator extends Employee implements Approver, Assigner {
     }
 
     @Override
-    public void removeJobRequest(int JobID) {
-        BankSystem.jobs.get(JobID).markRejected();
+    public void removeJobRequest(int JobID) throws JobNotFound {
+        Job j;
+        try {
+            j = BankSystem.jobs.get(JobID);
+        }catch (Exception ignored){
+            throw new JobNotFound("Job with job id " + JobID +" was not found!");
+        }
+        j.markRejected();
     }
 }

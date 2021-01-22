@@ -24,7 +24,7 @@ public class Regular extends ActionTaker implements Requester{
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
-    public void doJob(int JobID) {
+    public void doJob(int JobID) throws Exception{
         if(!BankSystem.status.isInProgress()) return;
         //get job id proper
 //        int properID = 0;
@@ -134,8 +134,21 @@ public class Regular extends ActionTaker implements Requester{
         job.markComplete();
     }
     public void doTransaction(String detail, String accountFrom, String accountTo, double amount){
-        Account f = BankSystem.getAccount(accountFrom);
-        Account t = BankSystem.getAccount(accountFrom);
+        Account f,t;
+        try{
+            f = BankSystem.getAccount(accountFrom);
+        }catch(Exception m){
+            System.out.println(m.toString());
+            System.out.println("From Account not found!");
+            return;
+        }
+        try{
+            t = BankSystem.getAccount(accountFrom);
+        }catch(Exception m){
+            System.out.println(m.toString());
+            System.out.println("To Account not found!");
+            return;
+        }
         f.setBalanceOnHold(f.getBalanceOnHold() - amount);
         t.setAvailableBalance(t.getAvailableBalance() + amount);
         f.addTransaction(new Transaction(detail, accountFrom, accountTo, amount));

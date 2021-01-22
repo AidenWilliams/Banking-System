@@ -59,23 +59,43 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
     }
 
-    //TODO: Add javadoc
+    /**
+     *
+     * @return id
+     */
+
     public String getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id sets the id
+     */
     public void setId(String id) {
         this.id = name;
     }
 
+    /**
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name sets the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return surname
+     */
     public String getSurname() {
         return surname;
     }
