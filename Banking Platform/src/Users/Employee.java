@@ -1,6 +1,7 @@
 package Users;
 
 import Workflow.BankSystem;
+import Workflow.Job;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +29,12 @@ public abstract class Employee extends User {
     public String viewJobs() {
         StringBuilder output = new StringBuilder();
         output.append("Jobs\n");
-        output.append("ID\tDetails\tStatus\tAssignee\n");
-        for(int i = 0; i < BankSystem.jobs.size(); i++)
-            output.append(i).append("\t").append(BankSystem.jobs.get(i).getDescription())
-                    .append("\t").append(BankSystem.jobs.get(i).getStatus())
-                    .append("\t").append(BankSystem.jobs.get(i).getAssignee()).append("\n");
+        output.append("ID\tDetails\tStatus\n");
+        int i = 0;
+        for(Job job: BankSystem.jobs)
+            output.append(i++).append("\t").append(job.getDescription())
+                    .append("\t").append(job.getStatus()).append("\n");
+
         return output.toString();
     }
 }

@@ -36,8 +36,10 @@ public class BankSystem {
                 customer.setAccount(amendedAccount);
     }
 
-    public static void AssignAccountToCustomer(Account account, String customer){
-        customers.get(customers.indexOf(customer)).addAccount(account);
+    public static void AssignAccountToCustomer(Account account, String id){
+        for(Customer customer: customers)
+            if(customer.getId().equals(id))
+                customer.addAccount(account);
     }
 
     public static int[] OwnerOfAccount(String number){

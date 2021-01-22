@@ -27,14 +27,15 @@ public class Regular extends ActionTaker implements Requester{
     public void doJob(int JobID) {
         if(!BankSystem.status.isInProgress()) return;
         //get job id proper
-        int properID = 0;
-        if(JobID != 0)
-            for(Job job: BankSystem.jobs)
-                if(job.getAssignee() == this && job.isApproved())
-                    if(++properID == JobID) break;
+//        int properID = 0;
+//        if(JobID != 0)
+//            for(Job job: BankSystem.jobs)
+//                if(job.getAssignee() == this && job.isApproved())
+//                    if(++properID == JobID) break;
         //mark instruction when job has one
 
-        Job job = BankSystem.jobs.get(properID);
+        Job job = BankSystem.jobs.get(JobID);
+        if(!job.isApproved()) return;
         job.markInProgress();
 
         switch (job.getDescription()) {
@@ -100,7 +101,8 @@ public class Regular extends ActionTaker implements Requester{
             case "Close Account": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 for(int i: BankSystem.OwnerOfAccount(accountNumber))
-                    BankSystem.customers.get(i).getAccount(accountNumber).setStatus(false);
+                    if(i != -1)
+                        BankSystem.customers.get(i).getAccount(accountNumber).setStatus(false);
                 break;
             }
             case "Add Card": {
@@ -151,7 +153,7 @@ public class Regular extends ActionTaker implements Requester{
     }
 
     @Override
-    public <T> void requestCreateNewAccount(Class<T> type, Customer[] beneficiaries, String accountNumber, double availableBalance, String currency) {
+    public <T> void requestCreateNewAccount(Class<T> type, String[] beneficiaries, String accountNumber, double availableBalance, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(type);
         jobDetails.add(beneficiaries);
@@ -162,7 +164,7 @@ public class Regular extends ActionTaker implements Requester{
     }
 
     @Override
-    public <T> void requestCreateNewAccount(Class<T> type, Customer[] beneficiaries, String accountNumber, String currency) {
+    public <T> void requestCreateNewAccount(Class<T> type, String[] beneficiaries, String accountNumber, String currency) {
         ArrayList<Object> jobDetails = new ArrayList<>();
         jobDetails.add(type);
         jobDetails.add(beneficiaries);

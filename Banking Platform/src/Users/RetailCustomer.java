@@ -15,7 +15,7 @@ public class RetailCustomer extends Customer{
     }
 
     @Override
-    String viewBalance() {
+    public String viewBalance() {
         StringBuilder output = new StringBuilder();
         for(Account account: accounts){
             output.append("Account Number\n");
@@ -30,7 +30,7 @@ public class RetailCustomer extends Customer{
     }
 
     @Override
-    String viewBalance(String accountNumber) {
+    public String viewBalance(String accountNumber) {
         StringBuilder output = new StringBuilder();
         for(Account account: accounts){
             if(account.getNumber().equals(accountNumber)){
@@ -45,7 +45,7 @@ public class RetailCustomer extends Customer{
     }
 
     @Override
-    String viewTransactions() {
+    public String viewTransactions() {
         StringBuilder output = new StringBuilder();
         for(Account account: accounts){
             output.append("Account Number\n");
@@ -61,7 +61,7 @@ public class RetailCustomer extends Customer{
     }
 
     @Override
-    String viewTransactions(String accountNumber) {
+    public String viewTransactions(String accountNumber) {
         StringBuilder output = new StringBuilder();
         for(Account account: accounts){
             if(account.getNumber().equals(accountNumber)) {
@@ -79,26 +79,30 @@ public class RetailCustomer extends Customer{
     }
 
     @Override
-    void addInstruction(String detail) {
+    public void addInstruction(String detail) {
         BankSystem.instructions.add(new Instruction(detail, this));
     }
 
     @Override
-    void removeInstruction(int id) {
+    public void removeInstruction(int id) {
         BankSystem.instructions.remove(id);
     }
 
     @Override
-    String viewInstruction(Instruction instruction) {
+    public String viewInstruction(Instruction instruction) {
         StringBuilder output = new StringBuilder();
         output.append(instruction.getDetail()).append("\t");
         output.append(instruction.getStatus()).append("\t");
-        output.append(instruction.getAssignee());
+        if(instruction.getAssignee() == null)
+            output.append("Not Assigned");
+        else
+            output.append(instruction.getAssignee().getName());
+
         return output.toString();
     }
 
     @Override
-    String viewInstructions() {
+    public String viewInstructions() {
         StringBuilder output = new StringBuilder();
         int counter = 0;
         for(Instruction instruction: BankSystem.instructions){
