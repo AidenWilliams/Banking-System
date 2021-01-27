@@ -1,5 +1,12 @@
 package Accounts;
-
+/**
+ *
+ * <h1>Savings Account Class</h1>
+ *
+ * <p>
+ *     This banking system current account implementation. This class has no special attributes
+ * @see Account
+ */
 public class SavingsAccount extends Account{
     /**
      * <p>
@@ -12,12 +19,14 @@ public class SavingsAccount extends Account{
      * @param number           Account Number
      * @param availableBalance The available balance
      * @param currency         The currency that the account is operating in
-     * @see User
      */
     public SavingsAccount(String[] beneficiaries, String number, double availableBalance, String currency) {
         super(beneficiaries, number, availableBalance, currency);
     }
-
+    /**
+     * Copy constructor
+     * @param account copied account
+     */
     public SavingsAccount(Account account){
         super(account);
     }

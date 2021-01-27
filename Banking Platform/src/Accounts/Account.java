@@ -1,6 +1,6 @@
 package Accounts;
 import Users.User;
-
+import Workflow.Status;
 import java.util.ArrayList;
 
 /**
@@ -19,8 +19,8 @@ import java.util.ArrayList;
  *     <li>Savings Account</li>
  * </ul>
  *
- * @author aiden
- * @version 1.1
+ * @see CurrentAccount
+ * @see SavingsAccount
  */
 public abstract class Account {
     private String[] beneficiaries;
@@ -29,9 +29,9 @@ public abstract class Account {
     private String currency;
     private double availableBalance;
     private double balanceOnHold;
-    private boolean status;
+    private Status status;
     private ArrayList<Card> cards;
-    private ArrayList<Transaction> transactions;
+    private final ArrayList<Transaction> transactions;
 
     /**
      * <p>
@@ -54,10 +54,14 @@ public abstract class Account {
         this.availableBalance = availableBalance;
         this.balanceOnHold = 0f;
         this.currency = currency;
-        this.status = true;
+        this.status.markApproved();
         this.transactions = new ArrayList<>();
     }
 
+    /**
+     * Copy constructor
+     * @param account copied account
+     */
     public Account(Account account) {
         this.beneficiaries = account.beneficiaries;
         this.IBAN = account.IBAN;
@@ -65,11 +69,11 @@ public abstract class Account {
         this.availableBalance = account.availableBalance;
         this.balanceOnHold = 0f;
         this.currency = account.currency;
-        this.status = true;
+        this.status = account.status;
+        this.cards = account.cards;
         this.transactions = account.transactions;
     }
 
-    //TODO: Add javadoc to cards
     /**
      * @return The beneficiary of the account
      */
@@ -133,10 +137,16 @@ public abstract class Account {
         this.availableBalance = availableBalance;
     }
 
+    /**
+     * @return The account balance that is on hold
+     */
     public double getBalanceOnHold() {
         return balanceOnHold;
     }
 
+    /**
+     * @param balanceOnHold The account balance that is on hold
+     */
     public void setBalanceOnHold(double balanceOnHold) {
         this.balanceOnHold = balanceOnHold;
     }
@@ -155,16 +165,15 @@ public abstract class Account {
      *      <li>True = Active</li>
      *      <Li>False = Not Active</Li>
      * </ul>
-     * @see Account
      */
-    public boolean isStatus() {
+    public Status isStatus() {
         return status;
     }
 
     /**
      * @param status The status of the account
      */
-    public void setStatus(boolean status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -175,22 +184,44 @@ public abstract class Account {
         return beneficiaries.length != 0;
     }
 
+    /**
+     * Returns
+     * @return all the cards for this account
+     * @see Card
+     */
     public ArrayList<Card>  getCards() {
         return cards;
     }
-    //touch this
+
+    /**
+     * Adds a card
+     * @param card card to be added to the account
+     * @see Card
+     */
     public void addCard(Card card) {
         this.cards.add(card);
     }
 
+    /**
+     * removes the card with number
+     * @param number the card number
+     */
     public void removeCard(String number) {
         this.cards.removeIf(c -> c.getNumber().equals(number));
     }
 
+    /**
+     * Adds a transaction to the account
+     * @param transaction transaction to be added
+     * @see Transaction
+     */
     public void addTransaction(Transaction transaction){
         this.transactions.add(transaction);
     }
 
+    /**
+     * @return ArrayList of all the transactions of the account
+     */
     public ArrayList<Transaction> getTransactions(){
         return this.transactions;
     }

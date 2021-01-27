@@ -1,9 +1,16 @@
 package Workflow;
-
 import Users.Employee;
 
 import java.util.ArrayList;
-
+/**
+ *
+ * <h1>Job Class</h1>
+ *
+ * <p>
+ *     A class that represents a job in the banking system. Each job is represented by a list of objects representing the
+ *     job items and a string description, representing the job. Jobs can also be assigned an employee.
+ * </p>
+ */
 public class Job extends Status{
     ArrayList<Object> details = new ArrayList<>();
 

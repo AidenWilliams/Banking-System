@@ -7,6 +7,14 @@ import Users.Customer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ *
+ * <h1>Bank System Class</h1>
+ *
+ * <p>
+ *     This class represents a live bank system, having tools and utilities for the various objects in the system to use.
+ * </p>
+ */
 public class BankSystem {
     public static ArrayList<Customer> customers = new ArrayList<>();
     public static ArrayList<Instruction> instructions = new ArrayList<>();

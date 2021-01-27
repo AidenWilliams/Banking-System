@@ -3,6 +3,8 @@ package Users;
 import Accounts.*;
 import Workflow.Job;
 import Workflow.BankSystem;
+import Workflow.Status;
+
 import java.util.ArrayList;
 
 public class Regular extends ActionTaker implements Requester{
@@ -102,22 +104,40 @@ public class Regular extends ActionTaker implements Requester{
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 for(int i: BankSystem.OwnerOfAccount(accountNumber))
                     if(i != -1)
-                        BankSystem.customers.get(i).getAccount(accountNumber).setStatus(false);
+                        BankSystem.customers.get(i).getAccount(accountNumber).setStatus(Status.approved);
                 break;
             }
             case "Add Card": {
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 if(!isClassPresent(DebitCard.class, job.getDetails())) {
                     if (isClassPresent(CreditCard.class, job.getDetails())) {
-                        CreditCard cc = new CreditCard(BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)[0]),
+                        CreditCard cc = new CreditCard(BankSystem.getAccount(accountNumber),
+                                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)[0]).getName(),
+                                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)[0]).getSurname(),
                                 "12/12/2999", // so safe wow
                                 accountNumber.substring(accountNumber.length() - 3),
-                                accountNumber,
+                                "",
+                                false,
+                                -1.0,
+                                1000,
+                                0.025);
+                        for(int i: BankSystem.OwnerOfAccount(accountNumber))
+                            BankSystem.customers.get(i).getAccount(accountNumber).addCard(cc);
+                    }
+                }
+
+                if(!isClassPresent(CreditCard.class, job.getDetails())) {
+                    if (isClassPresent(DebitCard.class, job.getDetails())) {
+                        DebitCard dc = new DebitCard(BankSystem.getAccount(accountNumber),
+                                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)[0]).getName(),
+                                BankSystem.customers.get(BankSystem.OwnerOfAccount(accountNumber)[0]).getSurname(),
+                                "12/12/2999", // so safe wow
+                                accountNumber.substring(accountNumber.length() - 3),
                                 "",
                                 false,
                                 -1.0);
                         for(int i: BankSystem.OwnerOfAccount(accountNumber))
-                            BankSystem.customers.get(i).getAccount(accountNumber).addCard(cc);
+                            BankSystem.customers.get(i).getAccount(accountNumber).addCard(dc);
                     }
                 }
                 break;
