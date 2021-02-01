@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *     <br>
  *     <h2>Customer</h2>
  *     <ul>
- *         <li>Customer</li>
+ *         <li>Retail Customer</li>
  *     </ul>
  * </p>
  *
@@ -48,7 +48,7 @@ public abstract class User {
      * @param email       Email of the user.
      * @param phoneNumber Phone of the user.
      */
-    User(String id, String name, String surname, ArrayList<String> addresses,
+    public User(String id, String name, String surname, ArrayList<String> addresses,
          String DOB, String email, String phoneNumber) {
         this.id = id;
         this.name = name;
@@ -60,7 +60,6 @@ public abstract class User {
     }
 
     /**
-     *
      * @return id
      */
 
@@ -69,7 +68,6 @@ public abstract class User {
     }
 
     /**
-     *
      * @param id sets the id
      */
     public void setId(String id) {
@@ -77,7 +75,6 @@ public abstract class User {
     }
 
     /**
-     *
      * @return name
      */
     public String getName() {
@@ -85,7 +82,6 @@ public abstract class User {
     }
 
     /**
-     *
      * @param name sets the name
      */
     public void setName(String name) {
@@ -93,21 +89,29 @@ public abstract class User {
     }
 
     /**
-     *
-     * @return surname
+     * @return user surname
      */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * @param surname sets the user surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    /**
+     * @return A list of the User's Addresses
+     */
     public ArrayList<String> getAddresses() {
         return addresses;
     }
 
+    /**
+     * @param addresses A list of the User's Addresses
+     */
     public void setAddresses(ArrayList<String> addresses) {
         this.addresses = addresses;
     }

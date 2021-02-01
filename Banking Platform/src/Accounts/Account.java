@@ -1,6 +1,7 @@
 package Accounts;
 import Users.User;
 import Workflow.Status;
+
 import java.util.ArrayList;
 
 /**
@@ -54,7 +55,7 @@ public abstract class Account {
         this.availableBalance = availableBalance;
         this.balanceOnHold = 0f;
         this.currency = currency;
-        this.status.markApproved();
+        this.status = Status.approved;
         this.transactions = new ArrayList<>();
     }
 
@@ -101,7 +102,7 @@ public abstract class Account {
     public String getNumber() {
         return number;
     }
-
+//    ?move setters to users?
     /**
      * @param number The unique internal account number, different from the IBAN
      */
@@ -224,5 +225,9 @@ public abstract class Account {
      */
     public ArrayList<Transaction> getTransactions(){
         return this.transactions;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

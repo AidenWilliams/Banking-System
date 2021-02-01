@@ -1,6 +1,9 @@
 package Users;
 
 import Accounts.*;
+import Exceptions.InstructionNotFound;
+import Exceptions.JobNotFound;
+import Workflow.Instruction;
 import Workflow.Job;
 import Workflow.BankSystem;
 import Workflow.Status;
@@ -26,15 +29,25 @@ public class Regular extends ActionTaker implements Requester{
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
 
+    @Override
+    public void instructionToJob(int InstructionID, Job job, Employee employee) throws InstructionNotFound {
+        Instruction i;
+        try {
+            i =  BankSystem.instructions.get(InstructionID);
+        }catch (Exception ignored){
+            throw new InstructionNotFound("Instruction with instruction id " + InstructionID +" was not found!");
+        }
+        i.markApproved();
+        i.setAssignee(employee);
+
+        ArrayList<Object> list = job.getDetails();
+        list.add(BankSystem.instructions.get(InstructionID));
+        job.setDetails(list);
+        BankSystem.jobs.add(job);
+    }
+
     public void doJob(int JobID) throws Exception{
         if(!BankSystem.status.isInProgress()) return;
-        //get job id proper
-//        int properID = 0;
-//        if(JobID != 0)
-//            for(Job job: BankSystem.jobs)
-//                if(job.getAssignee() == this && job.isApproved())
-//                    if(++properID == JobID) break;
-        //mark instruction when job has one
 
         Job job = BankSystem.jobs.get(JobID);
         if(!job.isApproved()) return;
@@ -104,7 +117,7 @@ public class Regular extends ActionTaker implements Requester{
                 String accountNumber = filter(String.class, job.getDetails()).get(0);
                 for(int i: BankSystem.OwnerOfAccount(accountNumber))
                     if(i != -1)
-                        BankSystem.customers.get(i).getAccount(accountNumber).setStatus(Status.approved);
+                        BankSystem.customers.get(i).getAccount(accountNumber).setStatus(Status.complete);
                 break;
             }
             case "Add Card": {
@@ -150,6 +163,14 @@ public class Regular extends ActionTaker implements Requester{
                     BankSystem.customers.get(i).getAccount(accountNumber).removeCard(cardNumber);
                 break;
             }
+            case "Transfer": {
+                String detail = filter(String.class, job.getDetails()).get(0);
+                String accountFrom = filter(String.class, job.getDetails()).get(1);
+                String accountTo = filter(String.class, job.getDetails()).get(2);
+                Double amount = filter(Double.class, job.getDetails()).get(0);
+
+                doTransaction(detail, accountFrom, accountTo, amount);
+            }
         }
         job.markComplete();
     }
@@ -163,7 +184,7 @@ public class Regular extends ActionTaker implements Requester{
             return;
         }
         try{
-            t = BankSystem.getAccount(accountFrom);
+            t = BankSystem.getAccount(accountTo);
         }catch(Exception m){
             System.out.println(m.toString());
             System.out.println("To Account not found!");

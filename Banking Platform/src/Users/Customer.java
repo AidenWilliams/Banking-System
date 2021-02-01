@@ -1,6 +1,7 @@
 package Users;
 import Accounts.Account;
 import Exceptions.AccountNotFound;
+import Users.User;
 import Workflow.Instruction;
 
 import java.util.ArrayList;

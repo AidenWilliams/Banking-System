@@ -48,26 +48,6 @@ public class Administrator extends Employee implements Approver, Assigner {
     }
 
     @Override
-    public void instructionToJob(int InstrctionID, Job job, Employee employee) throws InstructionNotFound, JobNotFound {
-        Instruction i;
-        try {
-            i =  BankSystem.instructions.get(InstrctionID);
-        }catch (Exception ignored){
-            throw new InstructionNotFound("Instruction with instruction id " + InstrctionID +" was not found!");
-        }
-        i.markApproved();
-        i.setAssignee(employee);
-
-        ArrayList<Object> list = job.getDetails();
-        list.add(BankSystem.instructions.get(InstrctionID));
-        job.setDetails(list);
-        job.markApproved();
-        BankSystem.jobs.add(job);
-
-        assignJob(BankSystem.jobs.size() - 1, employee);
-    }
-
-    @Override
     public void declineInstruction(int InstrctionID) throws InstructionNotFound {
         Instruction i;
         try {
@@ -76,16 +56,6 @@ public class Administrator extends Employee implements Approver, Assigner {
             throw new InstructionNotFound("Instruction with instruction id " + InstrctionID +" was not found!");
         }
         i.markRejected();
-    }
-
-    @Override
-    public String viewInstructions() {
-        StringBuilder output = new StringBuilder();
-        output.append("Administrator Instructions\n");
-        output.append("ID\tDetails\n");
-        for (int i = 0; i < BankSystem.instructions.size(); i++)
-            output.append(i).append("\t").append(BankSystem.instructions.get(i).getDetail()).append("\n");
-        return output.toString();
     }
 
     @Override

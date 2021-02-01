@@ -13,6 +13,16 @@ import java.util.Arrays;
  *
  * <p>
  *     This class represents a live bank system, having tools and utilities for the various objects in the system to use.
+ *     The most important contents here are:
+ * <ul>
+ *     <li>status:  if "turned off" will halt jobs from being completed.</li>
+ *     <li>customers: list of the bank's customers</li>
+ *     <li>instructions: list of the bank's instructions</li>
+ *     <li>jobs: list of the bank's jobs</li>
+ * </ul>
+ *
+ *     The class also offers functional tools for the programmer to use and access its contents.
+ *
  * </p>
  */
 public class BankSystem {
@@ -36,9 +46,13 @@ public class BankSystem {
     public static Account getAccount(String number) throws AccountNotFound {
         Account account;
         for(Customer customer: customers){
-            account = customer.getAccount(number);
-            if(account.getNumber().equals(number))
-                return account;
+            try {
+                account = customer.getAccount(number);
+                if(account.getNumber().equals(number))
+                    return account;
+            }catch (Exception ignored){
+                // We dont really mind if we dont find all the accounts
+            }
         }
         throw new AccountNotFound("No Account with account number:" + number + " found!");
     }
@@ -52,8 +66,10 @@ public class BankSystem {
                 System.out.println(m.toString());
                 return;
             }
-            if (accountNumber.equals(number))
+            if (accountNumber.equals(number)){
                 customer.setAccount(amendedAccount);
+                break;
+            }
         }
     }
 

@@ -13,7 +13,7 @@ import Users.Employee;
  *     expected for customers to know the complex job system of the bank.
  * </p>
  */
-public class Instruction extends Status{
+public class Instruction extends Status {
     private final String detail;
     private final Customer from;
     private Employee assignee;

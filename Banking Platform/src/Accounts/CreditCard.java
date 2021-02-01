@@ -1,6 +1,5 @@
 package Accounts;
 
-import Users.Customer;
 /**
  * <h1>Credit Card Class</h1>
  *

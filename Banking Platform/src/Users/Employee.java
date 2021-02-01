@@ -26,6 +26,15 @@ public abstract class Employee extends User {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
     }
     // Reasoning is that all employees can view their joblit and do the job hey want to
+    public String viewInstructions(){
+        StringBuilder output = new StringBuilder();
+        output.append("Employee Instructions\n");
+        output.append("ID\tDetails\n");
+        for (int i = 0; i < BankSystem.instructions.size(); i++)
+            output.append(i).append("\t").append(BankSystem.instructions.get(i).getDetail()).append("\n");
+        return output.toString();
+    }
+
     public String viewJobs() {
         StringBuilder output = new StringBuilder();
         output.append("Jobs\n");

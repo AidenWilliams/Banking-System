@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *     job items and a string description, representing the job. Jobs can also be assigned an employee.
  * </p>
  */
-public class Job extends Status{
+public class Job extends Status {
     ArrayList<Object> details = new ArrayList<>();
 
     String description;

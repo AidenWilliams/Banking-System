@@ -2,13 +2,11 @@ package Users;
 
 import Accounts.Account;
 import Accounts.Transaction;
-import Workflow.Job;
-import Workflow.Limits;
-import Workflow.Instruction;
-import Workflow.BankSystem;
+import Workflow.*;
+
 import java.util.ArrayList;
 
-public class RetailCustomer extends Customer{
+public class RetailCustomer extends Customer {
     public RetailCustomer(String id, String name, String surname, ArrayList<String> addresses, String DOB, String email,
                    String phoneNumber) {
         super(id, name, surname, addresses, DOB, email, phoneNumber);
@@ -136,7 +134,7 @@ public class RetailCustomer extends Customer{
                 return;
             }
             try{
-                t = BankSystem.getAccount(accountFrom);
+                t = BankSystem.getAccount(accountTo);
             }catch(Exception m){
                 System.out.println(m.toString());
                 System.out.println("To Account not found!");
@@ -152,7 +150,6 @@ public class RetailCustomer extends Customer{
             BankSystem.AmendAccount(accountTo, t);
         }else{
             ArrayList<Object> jobDetails = new ArrayList<>();
-            jobDetails.add(this);
             jobDetails.add(detail);
             jobDetails.add(accountFrom);
             jobDetails.add(accountTo);
