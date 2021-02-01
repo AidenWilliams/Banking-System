@@ -1,1 +1,1 @@
-javac Main.main
+javac Main.java

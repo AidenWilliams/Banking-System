@@ -1,1 +1,1 @@
-java main CreateEmployees
+java Main CreateEmployees

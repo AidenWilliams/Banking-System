@@ -1,1 +1,1 @@
-java main CreateAccounts
+java Main CreateAccounts

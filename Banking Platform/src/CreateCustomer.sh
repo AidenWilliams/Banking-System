@@ -1,1 +1,1 @@
-java main CreateCustomer
+java Main CreateCustomer

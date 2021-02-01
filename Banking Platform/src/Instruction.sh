@@ -1,1 +1,1 @@
-java main Instruction
+java Main Instruction
